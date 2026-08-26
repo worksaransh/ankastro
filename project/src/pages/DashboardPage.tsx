@@ -56,7 +56,8 @@ import { SpecializedReportsHub } from '@/components/dashboard/SpecializedReports
 
 import {
   User, FileText, Crown, Sparkles, LogOut, Plus,
-  AlertCircle, Star, Download, Sun, Gem, Smartphone, Baby, Car, Wand2, Briefcase, Heart, Building2, Home, Calendar, Lock
+  AlertCircle, Star, Download, Sun, Gem, Smartphone, Baby, Car, Wand2, Briefcase, Heart, Building2, Home, Calendar, Lock,
+  Shield, Activity, Compass, Zap, Flame
 } from 'lucide-react';
 
 interface PaymentRow {
@@ -956,11 +957,18 @@ const DashboardPage = () => {
                 { key: 'name_correction', slug: 'name-correction-report', label: 'Name Correction', icon: Wand2, color: 'text-amber-400', bg: 'bg-amber-400/5' },
                 { key: 'mobile_numerology', slug: 'mobile-numerology-report', label: 'Mobile Vibration', icon: Smartphone, color: 'text-blue-400', bg: 'bg-blue-400/5' },
                 { key: 'vehicle_numerology', slug: 'vehicle-numerology-report', label: 'Vehicle Vibration', icon: Car, color: 'text-emerald-400', bg: 'bg-emerald-400/5' },
-                { key: 'career_numerology', slug: 'career-numerology-report', label: 'Career Prediction', icon: Briefcase, color: 'text-purple-400', bg: 'bg-purple-400/5' },
-                { key: 'compatibility_report', slug: 'compatibility-report', label: 'Love Compatibility', icon: Heart, color: 'text-pink-400', bg: 'bg-pink-400/5' },
+                { key: 'career_numerology', slug: 'career-numerology-report', label: 'Career Karma', icon: Briefcase, color: 'text-purple-400', bg: 'bg-purple-400/5' },
+                { key: 'baby_name', slug: 'baby-name-report', label: 'Lucky Baby Name', icon: Baby, color: 'text-pink-400', bg: 'bg-pink-400/5' },
+                { key: 'compatibility_report', slug: 'compatibility-report', label: 'Love Match', icon: Heart, color: 'text-rose-400', bg: 'bg-rose-400/5' },
                 { key: 'business_numerology', slug: 'business-numerology-report', label: 'Business Advisor', icon: Building2, color: 'text-cyan-400', bg: 'bg-cyan-400/5' },
                 { key: 'property_numerology', slug: 'property-numerology-report', label: 'Property Vibe', icon: Home, color: 'text-teal-400', bg: 'bg-teal-400/5' },
-                { key: 'marriage_report', slug: 'marriage-report', label: 'Marriage Timing', icon: Calendar, color: 'text-indigo-400', bg: 'bg-indigo-400/5' },
+                { key: 'marriage_report', slug: 'marriage-report', label: 'Marriage 36-Gun', icon: Calendar, color: 'text-indigo-400', bg: 'bg-indigo-400/5' },
+                { key: 'shani_sade_sati', slug: 'shani-sade-sati-report', label: 'Shani Sade Sati', icon: Shield, color: 'text-violet-400', bg: 'bg-violet-400/5' },
+                { key: 'pitra_dosh_karmic', slug: 'pitra-dosh-karmic-report', label: 'Pitra Dosh Karma', icon: Flame, color: 'text-orange-400', bg: 'bg-orange-400/5' },
+                { key: 'wealth_yogas_kundli', slug: 'wealth-yogas-kundli-report', label: 'Dhana Yogas & Laxmi', icon: Sparkles, color: 'text-amber-300', bg: 'bg-amber-300/5' },
+                { key: 'health_vitality_kundli', slug: 'health-vitality-kundli-report', label: 'Medical Kundli', icon: Activity, color: 'text-emerald-300', bg: 'bg-emerald-300/5' },
+                { key: 'foreign_settlement_travel', slug: 'foreign-settlement-travel-report', label: 'Foreign Travel & PR', icon: Compass, color: 'text-sky-400', bg: 'bg-sky-400/5' },
+                { key: 'mangal_dosha_analysis', slug: 'mangal-dosha-analysis-report', label: 'Manglik Dosha', icon: Zap, color: 'text-red-400', bg: 'bg-red-400/5' },
               ].map((item) => {
                 const matchingReport = reports.find(r => r.report_type === item.key);
                 const isUnlocked = accountTier === 'master' || !!matchingReport;
