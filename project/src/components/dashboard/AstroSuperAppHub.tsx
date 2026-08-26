@@ -1139,7 +1139,7 @@ export const AstroSuperAppHub: React.FC<AstroSuperAppHubProps> = ({ userProfile,
                 <div className="p-3.5 rounded-xl bg-background/80 border border-border/80 text-xs space-y-1">
                   <span className="font-bold text-amber-400">{selectedAngelNum} — {ANGEL_NUMBERS[selectedAngelNum].title}</span>
                   <p className="text-muted-foreground leading-relaxed">
-                    {ANGEL_NUMBERS[selectedAngelNum].meaning[language as keyof typeof ANGEL_NUMBERS[selectedAngelNum].meaning] || ANGEL_NUMBERS[selectedAngelNum].meaning.en}
+                    {(ANGEL_NUMBERS[selectedAngelNum].meaning as Record<string, string>)[language] || ANGEL_NUMBERS[selectedAngelNum].meaning.en}
                   </p>
                 </div>
               )}
