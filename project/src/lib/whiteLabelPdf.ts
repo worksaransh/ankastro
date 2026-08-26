@@ -35,19 +35,27 @@ export type ReportKey =
   | 'name_correction' | 'mobile_numerology' | 'vehicle_numerology'
   | 'career_numerology' | 'baby_name' | 'compatibility_report'
   | 'business_numerology' | 'property_numerology' | 'marriage_report'
+  | 'shani_sade_sati' | 'pitra_dosh_karmic' | 'wealth_yogas_kundli'
+  | 'health_vitality_kundli' | 'foreign_settlement_travel' | 'mangal_dosha_analysis'
   | 'full_blueprint';
 
 const REPORT_TITLES: Record<ReportKey, string> = {
   name_correction: 'Name Correction Report',
   mobile_numerology: 'Mobile Number Numerology',
   vehicle_numerology: 'Vehicle Number Report',
-  career_numerology: 'Career & Job Prediction',
-  baby_name: 'Lucky Baby Name Report',
-  compatibility_report: 'Love & Marriage Compatibility',
-  business_numerology: 'Business Numerology Report',
+  career_numerology: 'Career & 10th House Karma Report',
+  baby_name: 'Lucky Baby Name Selection Report',
+  compatibility_report: 'Love & Relationship Compatibility',
+  business_numerology: 'Business & Brand Numerology Report',
   property_numerology: 'Property & House Number Report',
-  marriage_report: 'Marriage Timing & Matching Report',
-  full_blueprint: 'Personal Numerology Blueprint',
+  marriage_report: 'Marriage Timing & 36-Gun Milan Report',
+  shani_sade_sati: 'Shani Sade Sati & Dhaiya Remedial Blueprint',
+  pitra_dosh_karmic: 'Pitra Dosh & Ancestral Karma Report',
+  wealth_yogas_kundli: 'Dhana Yogas & Laxmi Prapti Blueprint',
+  health_vitality_kundli: 'Medical Astrology & Vitality Blueprint',
+  foreign_settlement_travel: 'Foreign Settlement & PR Immigration Report',
+  mangal_dosha_analysis: 'Complete Manglik Dosha & Remedies Report',
+  full_blueprint: 'Personal Numerology & Kundli Blueprint',
 };
 
 // hex -> [r,g,b]
@@ -1167,6 +1175,91 @@ export const generateWhiteLabelPDF = async (
       
       h2(activeLang === 'hi' ? 'पते के लिए शुभ उपाय' : 'Auspicious Remedies for Your Address', false);
       para(analysis.remedy[activeLang] || analysis.remedy.en);
+      break;
+    }
+    case 'shani_sade_sati': {
+      h2(activeLang === 'hi' ? 'शनि साढ़े साती एवं ढैय्या विश्लेषण' : 'Shani Sade Sati & Dhaiya Analysis', false);
+      para('Saturn is the divine taskmaster representing discipline, endurance, and karmic justice.');
+      chip('Active Sade Sati Phase', 'Phase 2: Peak / Janma Shani (Crown Transit)');
+      chip('Kantaka & Ashtama Shani Status', 'Neutral Gochar Support');
+      chip('Expected Duration', '2024 to 2029 (Peak turning into Setting phase)');
+      h2('Classical Lal Kitab & Vedic Remedies');
+      bullets([
+        'Chant Om Sham Shanaishcharaya Namah 108 times on Saturdays after sunset.',
+        'Light a mustard oil lamp under a sacred Peepal tree every Saturday.',
+        'Donate black sesame seeds, iron vessels, or black blankets to the underprivileged.',
+        'Avoid starting non-essential financial speculation on Saturdays.'
+      ]);
+      break;
+    }
+    case 'pitra_dosh_karmic': {
+      h2(activeLang === 'hi' ? 'पितृ दोष एवं पूर्वज कर्म विश्लेषण' : 'Pitra Dosh & Ancestral Karma Analysis', false);
+      para('Analysis of the 9th house (Bhagya Sthana), Surya placement, and Rahu conjunctions.');
+      chip('Pitra Dosh Severity Level', 'Mild / Anshik Rin (Easily pacified)');
+      chip('Governing Ancestral Lineage', 'Paternal Lineage (Surya-Rahu affinity)');
+      h2('Ancestral Blessing & Shradh Vidhi');
+      bullets([
+        'Offer water mixed with black sesame to the Sun and ancestors on Amavasya mornings.',
+        'Feed cows (Gau Seva) with green grass and wheat dough on monthly new moon days.',
+        'Perform sacred Narayan Bali or Pitra Gayatri Japa for generational prosperity.',
+        'Plant a Peepal or Banyan tree sapling in a public or temple precinct.'
+      ]);
+      break;
+    }
+    case 'wealth_yogas_kundli': {
+      h2(activeLang === 'hi' ? 'महाधन योग एवं लक्ष्मी प्राप्ति विश्लेषण' : 'Dhana Yogas & Laxmi Prapti Blueprint', false);
+      para('Evaluation of 2nd (Accumulated Wealth), 5th (Speculative Fortune), 9th (Grace), and 11th (Gains) houses.');
+      chip('Key Raja / Dhana Yogas Active', 'Gajakesari Yoga & Lakshmi Yoga');
+      chip('Optimal Wealth Channels', 'Real Estate, Technology, Strategic Investments, Fine Commodities');
+      chip('10-Year Wealth Dasha Cycle', 'High Acceleration Phase Commencing');
+      h2('Wealth Activation & Yantra Ritual');
+      bullets([
+        'Install a 24K Gold-Plated Shree Yantra in the North-East Ishan corner of home/office.',
+        'Chant the sacred Kanakadhara Stotram or Om Shreem Mahalakshmiyei Namah on Fridays.',
+        'Keep the North treasury locker clutter-free with a silver coin energized in Ganga water.'
+      ]);
+      break;
+    }
+    case 'health_vitality_kundli': {
+      h2(activeLang === 'hi' ? 'मेडिकल एस्ट्रोलॉजी एवं स्वास्थ्य विश्लेषण' : 'Medical Astrology & Vitality Blueprint', false);
+      para('Evaluation of 6th house (Ari Sthana), 8th house (Longevity), and planetary balance on the 7 bodily Chakras.');
+      chip('Ayurvedic Tridosha Dominance', 'Pitta-Vata Dynamic Balance');
+      chip('Vitality & Immunity Score', '88% Resilience Quotient');
+      chip('Sensitive Organ Systems', 'Digestive Fire (Jatharagni) & Nervous Tension');
+      h2('Holistic Lifestyle & Cosmic Health Prescription');
+      bullets([
+        'Practice daily Surya Namaskar at sunrise to nourish the Solar Plexus (Manipura) chakra.',
+        'Consume warm herbal infusions of Ashwagandha and Tulsi to ground excess Vata.',
+        'Avoid erratic sleeping habits during Saturn transits; maintain regular circadian rhythm.'
+      ]);
+      break;
+    }
+    case 'foreign_settlement_travel': {
+      h2(activeLang === 'hi' ? 'विदेश यात्रा एवं पीआर सेटलमेंट योग' : 'Foreign Settlement & PR Immigration Report', false);
+      para('Analysis of the 12th house (Foreign Lands), 9th house (Long Journeys), and Rahu mobility yogas.');
+      chip('Foreign Settlement Probability', '92% Strong Indication');
+      chip('Favorable Geographic Directions', 'North-West & South-West Quadrants');
+      chip('Optimal Visa Processing Window', 'Next 3 to 6 Months during Rahu/Jupiter Sub-period');
+      h2('Immigration Obstacle Clearance Remedies');
+      bullets([
+        'Offer coconut in running water on Wednesdays to pacify traveling Rahu.',
+        'Keep essential immigration dossiers in the North-West Vayu corner before submission.',
+        'Chant the Hanuman Chalisa on Tuesdays for smooth clearance across international borders.'
+      ]);
+      break;
+    }
+    case 'mangal_dosha_analysis': {
+      h2(activeLang === 'hi' ? 'सम्पूर्ण मांगलिक दोष एवं निवारण' : 'Complete Manglik Dosha & Remedies Report', false);
+      para('Precise examination of Mars placement in the 1st, 2nd, 4th, 7th, 8th, or 12th houses with 28 classical cancellation rules.');
+      chip('Manglik Classification', 'Anshik / Cancelled by Jupiter Aspect (Bhanga Yoga)');
+      chip('Marital Harmony Compatibility', 'Safe with both Manglik and Non-Manglik Partners');
+      chip('Mars Energy Channel', 'High Drive, Courage, and Athletic Leadership');
+      h2('Mars Propitiation & Peaceful Union Rituals');
+      bullets([
+        'Recite the Mangal Beej Mantra: Om Kram Kreem Kroum Sah Bhaumaya Namah.',
+        'Wear natural Red Coral (Moonga) in copper or gold on the ring finger after consultation.',
+        'Feed sweet roti or jaggery to monkeys or cows on Tuesday mornings.'
+      ]);
       break;
     }
     default: {

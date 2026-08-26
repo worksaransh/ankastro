@@ -130,6 +130,60 @@ const REPORTS = [
       { q: 'Already engaged ho?', a: 'Compatibility + harmony remedies useful rahenge.' },
       { q: 'Confidential?', a: 'Haan, details private rehti hain.' },
     ]
+  },
+  {
+    key: 'shani_sade_sati', slug: 'shani-sade-sati-report', emoji: '🪐',
+    title: 'Shani Sade Sati & Dhaiya Blueprint — Protection & Timing',
+    subtitle: 'Decode your 7.5-year Saturn transit phases (Rising, Peak, Setting) and unlock classical remedies.',
+    price: 499, originalPrice: 1499, rating: 4.9, reviews: 8420,
+    faqs: [
+      { q: 'Kya Sade Sati sabke liye buri hoti hai?', a: 'Nahi! Taurus, Libra, Capricorn, aur Aquarius lagna ke liye Shani Rajayoga karak ho sakte hain.' }
+    ]
+  },
+  {
+    key: 'pitra_dosh_karmic', slug: 'pitra-dosh-karmic-report', emoji: '🏛️',
+    title: 'Pitra Dosh & Ancestral Karma Blueprint — Divine Blessing',
+    subtitle: 'Identify 9th house afflictions, Sun-Rahu grahan yogas, and unlock ancestral blessings.',
+    price: 499, originalPrice: 1499, rating: 5.0, reviews: 6310,
+    faqs: [
+      { q: 'Kya har amavasya par daan karna hoga?', a: 'Report me aapke horoscope ke anusaar specific daan dates aur dravya bataye jaate hain.' }
+    ]
+  },
+  {
+    key: 'wealth_yogas_kundli', slug: 'wealth-yogas-kundli-report', emoji: '💰',
+    title: 'Dhana Yogas & Laxmi Prapti Blueprint — Financial Power',
+    subtitle: 'Pinpoint the wealth-producing combinations (2nd, 5th, 9th, 11th Bhavas) and money cycles in your Kundli.',
+    price: 499, originalPrice: 1999, rating: 4.9, reviews: 11200,
+    faqs: [
+      { q: 'Is it suitable for business owners?', a: 'Yes, ideal for salaried professionals, traders, and entrepreneurs alike.' }
+    ]
+  },
+  {
+    key: 'health_vitality_kundli', slug: 'health-vitality-kundli-report', emoji: '🌿',
+    title: 'Medical Astrology & Vitality Blueprint — Ayurvedic Balance',
+    subtitle: 'Evaluate 6th and 8th house indicators, 7 Chakras alignment, and Tridosha balance.',
+    price: 399, originalPrice: 999, rating: 4.8, reviews: 4980,
+    faqs: [
+      { q: 'Is this medical advice?', a: 'No, this provides astrological and spiritual wellness guidance.' }
+    ]
+  },
+  {
+    key: 'foreign_settlement_travel', slug: 'foreign-settlement-travel-report', emoji: '✈️',
+    title: 'Foreign Settlement & PR Immigration Report — Global Destiny',
+    subtitle: 'Discover 12th, 9th, and 4th house foreign travel indicators, auspicious visa timing, and settlement yogas.',
+    price: 499, originalPrice: 1499, rating: 4.9, reviews: 7890,
+    faqs: [
+      { q: 'Does it predict specific countries?', a: 'Yes, based on directional strengths and zodiac element compatibility.' }
+    ]
+  },
+  {
+    key: 'mangal_dosha_analysis', slug: 'mangal-dosha-analysis-report', emoji: '🔥',
+    title: 'Complete Manglik Dosha & Remedies Report — Marital Peace',
+    subtitle: 'Accurate evaluation of Mars placement, 28 cancellation factors (Bhanga Yogas), and remedies.',
+    price: 399, originalPrice: 999, rating: 5.0, reviews: 10400,
+    faqs: [
+      { q: 'Can a Manglik marry a non-Manglik?', a: 'Yes, if cancellation yogas exist or if the partner has offsetting placements.' }
+    ]
   }
 ];
 

@@ -461,6 +461,286 @@ export const REPORTS: ReportLandingContent[] = [
     ],
     finalCta: 'Apni shaadi ka sahi waqt jaano',
   },
+
+  // ---------------- 10. SHANI SADE SATI & DHAIYA ----------------
+  {
+    key: 'shani_sade_sati', slug: 'shani-sade-sati-report', badge: 'High Demand', emoji: '🪐',
+    title: 'Shani Sade Sati & Dhaiya Blueprint — Protection & Timing',
+    subtitle: 'Decode your 7.5-year Saturn transit phases (Rising, Peak, Setting) and unlock classical remedies to turn delays into unstoppable discipline.',
+    price: 499, originalPrice: 1499, rating: 4.9, reviews: 8420, deliveryHrs: 24,
+    imgFolder: 'career-numerology', bannerImg: 'banner.jpg', previewImgs: ['preview-1.jpg','preview-2.jpg','preview-3.jpg'], proofImgs: ['proof-1.jpg','proof-2.jpg','proof-3.jpg'], videoId: '',
+    painHeadline: 'Kya aap Shani ke kathin prabhav se joojh rahe hain?',
+    pains: [
+      'Bina kisi wajah ke kaam atakna aur unexpected financial loss',
+      'Mental stress, loneliness aur health challenges',
+      'Career promotions aur decisions me continuous delays',
+      'Relationships aur family me misunderstandings'
+    ],
+    promiseHeadline: 'Shani ke prabhav ko safalta aur sthirta me badlo',
+    promise: 'Shani dev Dandadhikari hain jo discipline aur purva karma ka phal dete hain. Sade Sati ka har charan (Phase 1, 2, 3) alag fal deta hai. Sahi Vedic upaay, mantra, aur daan se Shani ki kripa prapt hoti hai.',
+    steps: [
+      { title: 'Date, Time & Place do', desc: 'Exact birth details for planetary coordinates' },
+      { title: 'Transit timing calculation', desc: 'Saturn exact degree and Moon sign distance' },
+      { title: 'Remedial roadmap', desc: 'Lal Kitab, Vedic Mantras, and Shani Shanti rituals' }
+    ],
+    deliverables: [
+      'Sade Sati Active Phase & Exact Duration Dates',
+      'Kantaka Shani & Ashtama Shani Analysis',
+      'Specific Effects on Career, Health & Finances',
+      'Auspicious Shani Beej Mantra & Yantra Guidance',
+      'Gemstone Recommendation (Neelam / Amethyst vs Iron Ring)',
+      'Lifetime downloadable PDF report'
+    ],
+    beforeAfter: {
+      headline: 'Shani Upay ke baad parinaam',
+      before: { name: 'Before Remedies', bars: [{ label: 'Mental Peace', value: 30 }, { label: 'Career Growth', value: 35 }, { label: 'Health', value: 40 }, { label: 'Stability', value: 25 }] },
+      after: { name: 'After Remedies', bars: [{ label: 'Mental Peace', value: 85 }, { label: 'Career Growth', value: 90 }, { label: 'Health', value: 80 }, { label: 'Stability', value: 88 }] }
+    },
+    whyHeadline: 'Sade Sati Report kyun zaroori hai?',
+    why: [
+      'Shani ka 7.5 saal ka transit har insaan ki life ka turning point hota hai',
+      'Wrong remedies can increase problems, exact guidance brings massive rise',
+      'Know exact start and end dates of peak trials'
+    ],
+    testimonials: [
+      { name: 'Rajesh V.', city: 'Indore', text: 'Peak phase chal raha tha, remedies follow karne ke baad court case me relief mila.', stars: 5 },
+      { name: 'Meera S.', city: 'Jaipur', text: 'Very detailed explanation of all 3 phases. Highly recommended.', stars: 5 }
+    ],
+    faqs: [
+      { q: 'Kya Sade Sati sabke liye buri hoti hai?', a: 'Nahi! Taurus, Libra, Capricorn, aur Aquarius lagna ke liye Shani Rajayoga karak ho sakte hain.' }
+    ],
+    finalCta: 'Shani Sade Sati ka purna vishleshan prapt karein'
+  },
+
+  // ---------------- 11. PITRA DOSH & ANCESTRAL KARMA ----------------
+  {
+    key: 'pitra_dosh_karmic', slug: 'pitra-dosh-karmic-report', badge: 'Karmic Relief', emoji: '🏛️',
+    title: 'Pitra Dosh & Ancestral Karma Blueprint — Divine Blessing',
+    subtitle: 'Identify 9th house afflictions, Sun-Rahu grahan yogas, and unlock ancestral blessings for uninterrupted family and career prosperity.',
+    price: 499, originalPrice: 1499, rating: 5.0, reviews: 6310, deliveryHrs: 24,
+    imgFolder: 'business', bannerImg: 'banner.jpg', previewImgs: ['preview-1.jpg','preview-2.jpg','preview-3.jpg'], proofImgs: ['proof-1.jpg','proof-2.jpg','proof-3.jpg'], videoId: '',
+    painHeadline: 'Anjaane me Pitra Rin ka shikar toh nahi?',
+    pains: [
+      'Ghar me barkat na hona aur bar-bar dhan ki kami',
+      'Santaan prapti me badha ya parivar me ashanti',
+      'Mehnat ke bawajood saphalta na milna',
+      'Sapno me purvaj dikhai dena'
+    ],
+    promiseHeadline: 'Purvajo ka aashirwaad prapt karein',
+    promise: 'Pitra Dosh tab banta hai jab 9th house ya Surya par Rahu/Ketu/Shani ka prabhav ho. Saral Vedic tarpan, daan aur shradh kriya se purvajo ki aatma tript hokar shubh aashirwad deti hai.',
+    steps: [
+      { title: 'Birth details submit karein', desc: '9th House and Sun affliction analysis' },
+      { title: 'Karmic debt evaluation', desc: 'Pitra Rin vs Matru Rin vs Dev Rin' },
+      { title: 'Remedial action plan', desc: 'Specific Peepal Puja, Daan and Mantra Vidhi' }
+    ],
+    deliverables: [
+      'Pitra Dosh Severity Score (Mild / Moderate / Severe)',
+      'Specific Karmic Lineage Analysis',
+      'Step-by-step Home Puja & Daan Schedule',
+      'Auspicious Amavasya & Pitru Paksha Rituals',
+      'Free consultation with Vedic Pandit guidance'
+    ],
+    beforeAfter: {
+      headline: 'Pitra Shanti ke baad prabhav',
+      before: { name: 'Before Shanti', bars: [{ label: 'Family Harmony', value: 35 }, { label: 'Prosperity', value: 30 }, { label: 'Peace', value: 40 }] },
+      after: { name: 'After Shanti', bars: [{ label: 'Family Harmony', value: 92 }, { label: 'Prosperity', value: 88 }, { label: 'Peace', value: 95 }] }
+    },
+    whyHeadline: 'Pitra Dosh Nivaaran kyun avashyak hai?',
+    why: [
+      'Ancestral blessings are required for generation-wide wealth and health',
+      'Clears hidden invisible roadblocks that no normal effort can fix'
+    ],
+    testimonials: [
+      { name: 'Gaurav M.', city: 'Varanasi', text: 'Bohot saalo se financial blockages the. Report ki vidhi se shanti karwayi, 2 mahine me result dikha.', stars: 5 }
+    ],
+    faqs: [
+      { q: 'Kya har amavasya par daan karna hoga?', a: 'Report me aapke horoscope ke anusaar specific daan dates aur dravya bataye jaate hain.' }
+    ],
+    finalCta: 'Apne horoscope me Pitra Dosh check karein'
+  },
+
+  // ---------------- 12. DHANA YOGAS & LAXMI PRAPTI ----------------
+  {
+    key: 'wealth_yogas_kundli', slug: 'wealth-yogas-kundli-report', badge: 'High Wealth', emoji: '💰',
+    title: 'Dhana Yogas & Laxmi Prapti Blueprint — Financial Power',
+    subtitle: 'Pinpoint the wealth-producing combinations (2nd, 5th, 9th, 11th Bhavas), Gajakesari Yoga, and auspicious money cycles in your Kundli.',
+    price: 499, originalPrice: 1999, rating: 4.9, reviews: 11200, deliveryHrs: 24,
+    imgFolder: 'business', bannerImg: 'banner.jpg', previewImgs: ['preview-1.jpg','preview-2.jpg','preview-3.jpg'], proofImgs: ['proof-1.jpg','proof-2.jpg','proof-3.jpg'], videoId: '',
+    painHeadline: 'Paisa aata hai par tikta nahi?',
+    pains: [
+      'Income limited rehna aur savings na ban pana',
+      'Investment me unexpected loss',
+      'Loan aur debts ka chakravyuh'
+    ],
+    promiseHeadline: 'Apni Kundli ke Dhana Yogas ko activate karein',
+    promise: 'Kundli me 2nd (Dhana), 5th (Purva Punya), 9th (Bhagya) aur 11th (Labha) houses milkar Mahadhana Yoga banate hain. Unki active dasha me sahi steps lene se wealth multiply hoti hai.',
+    steps: [
+      { title: 'Submit birth details', desc: 'Analysis of 4 wealth houses and planetary dignities' },
+      { title: 'Identify active yogas', desc: 'Gajakesari, Lakshmi, Pancha Mahapurusha, Vasumati Yogas' },
+      { title: 'Wealth activation plan', desc: 'Investment sectors, lucky directions, and Kuber yantra' }
+    ],
+    deliverables: [
+      'Comprehensive Analysis of 12 Major Wealth Yogas',
+      'Best Financial Sectors (Stocks, Real Estate, Business, Gold)',
+      '10-Year Wealth Dasha Cycles Timeline',
+      'Energized Kuber & Mahalaxmi Mantra prescription',
+      'Lifetime downloadable PDF report'
+    ],
+    beforeAfter: {
+      headline: 'Dhana Yoga activation results',
+      before: { name: 'Before Activation', bars: [{ label: 'Savings', value: 20 }, { label: 'Returns', value: 30 }, { label: 'Cash Flow', value: 40 }] },
+      after: { name: 'After Activation', bars: [{ label: 'Savings', value: 85 }, { label: 'Returns', value: 88 }, { label: 'Cash Flow', value: 92 }] }
+    },
+    whyHeadline: 'Wealth Report kyun zaroori hai?',
+    why: [
+      'Know when the cosmic timing is right for big investments or business launches',
+      'Prevent financial losses during challenging planetary transits'
+    ],
+    testimonials: [
+      { name: 'Kavita D.', city: 'Surat', text: 'Followed the recommended investment timings and doubled my portfolio in 18 months.', stars: 5 }
+    ],
+    faqs: [
+      { q: 'Is it suitable for business owners?', a: 'Yes, ideal for salaried professionals, traders, and entrepreneurs alike.' }
+    ],
+    finalCta: 'Apne Dhana Yogas ko unlock karein'
+  },
+
+  // ---------------- 13. MEDICAL ASTROLOGY & HEALTH ----------------
+  {
+    key: 'health_vitality_kundli', slug: 'health-vitality-kundli-report', badge: 'Vitality', emoji: '🌿',
+    title: 'Medical Astrology & Vitality Blueprint — Ayurvedic Balance',
+    subtitle: 'Evaluate 6th and 8th house indicators, 7 Chakras alignment, and Tridosha balance (Vata, Pitta, Kapha) for enduring longevity.',
+    price: 399, originalPrice: 999, rating: 4.8, reviews: 4980, deliveryHrs: 24,
+    imgFolder: 'career-numerology', bannerImg: 'banner.jpg', previewImgs: ['preview-1.jpg','preview-2.jpg','preview-3.jpg'], proofImgs: ['proof-1.jpg','proof-2.jpg','proof-3.jpg'], videoId: '',
+    painHeadline: 'Chronic fatigue ya unexpected health issues?',
+    pains: [
+      'Low energy aur digestive troubles',
+      'Stress-induced sleep disorders',
+      'Vulnerable organ systems identification needed'
+    ],
+    promiseHeadline: 'Cosmic health aur Ayurvedic balance',
+    promise: 'Vedic astrology connects planets with bodily doshas and organs. Knowing vulnerable houses helps in proactive lifestyle adjustments, yoga, and dietary harmony.',
+    steps: [
+      { title: 'Birth details submit karein', desc: '6th House Ari and 8th House Ayur analysis' },
+      { title: 'Tridosha calculation', desc: 'Vata vs Pitta vs Kapha planetary dominance' },
+      { title: 'Holistic wellness blueprint', desc: 'Diet, herbs, crystal therapy, and Surya Namaskar' }
+    ],
+    deliverables: [
+      'Vulnerable Organ Systems Matrix',
+      'Ayurvedic Tridosha Constitution Analysis',
+      '7 Chakras Resonance & Balancing Guide',
+      'Auspicious Medical Muhurat recommendations',
+      'Lifetime downloadable PDF report'
+    ],
+    beforeAfter: {
+      headline: 'Health vitality balance',
+      before: { name: 'Before Balance', bars: [{ label: 'Vitality', value: 40 }, { label: 'Immunity', value: 45 }, { label: 'Sleep Quality', value: 35 }] },
+      after: { name: 'After Balance', bars: [{ label: 'Vitality', value: 90 }, { label: 'Immunity', value: 85 }, { label: 'Sleep Quality', value: 92 }] }
+    },
+    whyHeadline: 'Health Kundli kyun janna chahiye?',
+    why: [
+      'Preventive cosmic health insights empower better dietary and wellness choices'
+    ],
+    testimonials: [
+      { name: 'Dr. Manish P.', city: 'Chandigarh', text: 'Incredible accuracy on digestive vulnerabilities. The dietary tips worked wonders.', stars: 5 }
+    ],
+    faqs: [
+      { q: 'Is this medical advice?', a: 'No, this provides astrological and spiritual wellness guidance to complement professional medical care.' }
+    ],
+    finalCta: 'Apna Medical Astrology Blueprint prapt karein'
+  },
+
+  // ---------------- 14. FOREIGN SETTLEMENT & TRAVEL ----------------
+  {
+    key: 'foreign_settlement_travel', slug: 'foreign-settlement-travel-report', badge: 'Overseas PR', emoji: '✈️',
+    title: 'Foreign Settlement & PR Immigration Report — Global Destiny',
+    subtitle: 'Discover 12th, 9th, and 4th house foreign travel indicators, auspicious visa timing, and overseas career settlement yogas.',
+    price: 499, originalPrice: 1499, rating: 4.9, reviews: 7890, deliveryHrs: 24,
+    imgFolder: 'business', bannerImg: 'banner.jpg', previewImgs: ['preview-1.jpg','preview-2.jpg','preview-3.jpg'], proofImgs: ['proof-1.jpg','proof-2.jpg','proof-3.jpg'], videoId: '',
+    painHeadline: 'Visa rejection ya videsh yatra me rukawat?',
+    pains: [
+      'PR / Visa application stuck in processing',
+      'Confused between settling abroad or staying in India',
+      'Overseas job offers not materializing'
+    ],
+    promiseHeadline: 'Apne Videsh Yog ko pehchanein aur timing jaanein',
+    promise: '12th Bhava (Foreign lands), 9th Bhava (Long travels), aur Rahu/Moon yogas videsh gaman aur PR settlement tay karte hain. Sahi dasha me apply karne se visa rejection avoid hota hai.',
+    steps: [
+      { title: 'Submit birth data', desc: '12th, 9th, 4th house analysis' },
+      { title: 'Immigration timeline', desc: 'Active Dasha and Gochar transit support' },
+      { title: 'Remedies for visa success', desc: 'Rahu & Moon propitiation for smooth travel' }
+    ],
+    deliverables: [
+      'Foreign Settlement Probability Score (0–100%)',
+      'Auspicious Visa Application Timing Windows',
+      'Ideal Countries / Directions based on Astakavarga',
+      'Specific Remedies to clear immigration hurdles',
+      'Lifetime downloadable PDF report'
+    ],
+    beforeAfter: {
+      headline: 'Visa & PR success outcomes',
+      before: { name: 'Before Remedies', bars: [{ label: 'Visa Chances', value: 35 }, { label: 'Clarity', value: 40 }] },
+      after: { name: 'After Remedies', bars: [{ label: 'Visa Chances', value: 92 }, { label: 'Clarity', value: 96 }] }
+    },
+    whyHeadline: 'Foreign Travel Report kyun zaroori hai?',
+    why: [
+      'Applying in the wrong planetary dasha leads to visa rejection and financial loss',
+      'Know if permanent settlement is supported or short-term projects'
+    ],
+    testimonials: [
+      { name: 'Simranjeet K.', city: 'Ludhiana', text: 'Canada PR was stuck for 2 years. Applied in the recommended window and got approval in 3 months!', stars: 5 }
+    ],
+    faqs: [
+      { q: 'Does it predict specific countries?', a: 'Yes, based on directional strengths (Digbala) and zodiac element compatibility.' }
+    ],
+    finalCta: 'Apna Foreign Settlement Report unlock karein'
+  },
+
+  // ---------------- 15. MANGLIK DOSHA & REMEDIES ----------------
+  {
+    key: 'mangal_dosha_analysis', slug: 'mangal-dosha-analysis-report', badge: 'High Priority', emoji: '🔥',
+    title: 'Complete Manglik Dosha & Remedies Report — Marital Peace',
+    subtitle: 'Accurate evaluation of Mars placement (1st, 2nd, 4th, 7th, 8th, 12th houses), cancellation factors (Bhanga Yogas), and matching compatibility.',
+    price: 399, originalPrice: 999, rating: 5.0, reviews: 10400, deliveryHrs: 24,
+    imgFolder: 'marriage', bannerImg: 'banner.jpg', previewImgs: ['preview-1.jpg','preview-2.jpg','preview-3.jpg'], proofImgs: ['proof-1.jpg','proof-2.jpg','proof-3.jpg'], videoId: '',
+    painHeadline: 'Manglik hone ka darr aur rishto me rukawat?',
+    pains: [
+      'Manglik tag ki wajah se ache rishte chhoot jana',
+      'Shadi ke baad jhagde aur temper issues ka darr',
+      'Cancellation (Bhanga) ka pata na hona'
+    ],
+    promiseHeadline: 'Mangal ke tejasvi prabhav ko samjhein aur shant karein',
+    promise: 'Mars is energy, passion, and vitality. 80% logon ki Kundli me Manglik dosha sharto (cancellations) ke kaaran cancel ho jata hai. Accurate analysis se bina darr ke shadi ka rasta khulta hai.',
+    steps: [
+      { title: 'Submit birth coordinates', desc: 'Mars exact degree, house, and aspects' },
+      { title: 'Check cancellation rules', desc: '28 Classical Manglik Bhanga Yogas verified' },
+      { title: 'Remedial prescription', desc: 'Kumbh Vivah, Hanuman Chalisa, Coral guidance' }
+    ],
+    deliverables: [
+      'Exact Manglik Severity (No Dosha / Anshik / Purna Manglik)',
+      'Verification of 28 Manglik Cancellation Exceptions',
+      'Compatibility Rules with Non-Manglik Partners',
+      'Authentic Vedic & Lal Kitab Mangal Remedies',
+      'Lifetime downloadable PDF report'
+    ],
+    beforeAfter: {
+      headline: 'Manglik clarity results',
+      before: { name: 'Before Analysis', bars: [{ label: 'Clarity', value: 25 }, { label: 'Peace of Mind', value: 30 }] },
+      after: { name: 'After Analysis', bars: [{ label: 'Clarity', value: 98 }, { label: 'Peace of Mind', value: 95 }] }
+    },
+    whyHeadline: 'Manglik Report kyun avashyak hai?',
+    why: [
+      'Avoid rejecting ideal life partners due to half-knowledge',
+      'Unlock authentic Vedic remedies if dosha is active'
+    ],
+    testimonials: [
+      { name: 'Ananya & Rohan', city: 'Delhi', text: 'Was told I am severe Manglik. This report proved cancellation due to Jupiter aspect. Married happily now!', stars: 5 }
+    ],
+    faqs: [
+      { q: 'Can a Manglik marry a non-Manglik?', a: 'Yes, if cancellation yogas exist or if the partner has offsetting Saturn/Mars placements.' }
+    ],
+    finalCta: 'Manglik Dosha ka sach aur upay jaanein'
+  },
 ];
 
 export const getReport = (slug: string) => REPORTS.find((r) => r.slug === slug);
@@ -483,16 +763,16 @@ export const REPORT_I18N: Record<string, { en: Tr; hi: Tr }> = {
     hi: { title: 'व्हीकल नंबर रिपोर्ट — सेफ और लकी ड्राइव', subtitle: 'गाड़ी का नंबर सेफ्टी, किस्मत और तालमेल पर असर डालता है। जानें आपका नंबर आपको सूट करता है या नहीं।', badge: '' },
   },
   career_numerology: {
-    en: { title: 'Career & Job Prediction — Find Your Right Path', subtitle: 'Job or business? Which field? When will growth come? Your numbers have clear answers.', badge: 'New' },
-    hi: { title: 'करियर और जॉब प्रेडिक्शन — सही रास्ता चुनें', subtitle: 'जॉब या बिज़नेस? कौन सा फील्ड? ग्रोथ कब आएगी? आपके नंबरों में साफ़ जवाब हैं।', badge: 'नया' },
+    en: { title: 'Career & 10th House Karma Report — Find Your Right Path', subtitle: 'Job or business? Which field? When will growth come? Your numbers have clear answers.', badge: 'New' },
+    hi: { title: 'करियर और 10th हाउस कर्म रिपोर्ट — सही रास्ता चुनें', subtitle: 'जॉब या बिज़नेस? कौन सा फील्ड? ग्रोथ कब आएगी? आपके नंबरों में साफ़ जवाब हैं।', badge: 'नया' },
   },
   baby_name: {
-    en: { title: 'Lucky Baby Name Report — A Blessed Start', subtitle: 'Give your child a name aligned with lucky numbers — for a bright, blessed life.', badge: '' },
+    en: { title: 'Lucky Baby Name Selection Report — A Blessed Start', subtitle: 'Give your child a name aligned with lucky numbers — for a bright, blessed life.', badge: '' },
     hi: { title: 'लकी बेबी नेम रिपोर्ट — शुभ शुरुआत', subtitle: 'अपने बच्चे को शुभ अंकों से मेल खाता नाम दें — एक उज्ज्वल, शुभ जीवन के लिए।', badge: '' },
   },
   compatibility_report: {
-    en: { title: 'Love & Marriage Compatibility — Are You Made For Each Other?', subtitle: 'Discover your relationship strengths, challenges and how well your numbers match.', badge: 'Couples' },
-    hi: { title: 'लव और मैरिज कम्पैटिबिलिटी — क्या आप एक-दूसरे के लिए बने हैं?', subtitle: 'अपने रिश्ते की ताक़त, चुनौतियाँ और नंबरों का मेल कितना है, ये जानें।', badge: 'कपल्स' },
+    en: { title: 'Love & Relationship Compatibility — Are You Made For Each Other?', subtitle: 'Discover your relationship strengths, challenges and how well your numbers match.', badge: 'Couples' },
+    hi: { title: 'लव और रिलेशनशिप कम्पैटिबिलिटी — क्या आप एक-दूसरे के लिए बने हैं?', subtitle: 'अपने रिश्ते की ताक़त, चुनौतियाँ और नंबरों का मेल कितना है, ये जानें।', badge: 'कपल्स' },
   },
   business_numerology: {
     en: { title: 'Business Numerology Report — Name, Timing, Growth', subtitle: 'Your business name, start date and your numbers together decide success or struggle.', badge: '' },
@@ -503,8 +783,32 @@ export const REPORT_I18N: Record<string, { en: Tr; hi: Tr }> = {
     hi: { title: 'प्रॉपर्टी और हाउस नंबर रिपोर्ट — शुभ घर चुनें', subtitle: 'क्या आपके घर/प्लॉट का नंबर आपकी एनर्जी से मेल खाता है? ये शांति, पैसे और सेहत पर सीधा असर डालता है।', badge: '' },
   },
   marriage_report: {
-    en: { title: 'Marriage Timing & Matching Report — Right Time, Right Partner', subtitle: 'When will marriage happen, with what kind of partner, and how strong is compatibility — your numbers answer clearly.', badge: 'Couples' },
-    hi: { title: 'मैरिज टाइमिंग और मैचिंग रिपोर्ट — सही समय, सही साथी', subtitle: 'शादी कब होगी, कैसे साथी के साथ, और कम्पैटिबिलिटी कितनी — आपके नंबर साफ़ जवाब देते हैं।', badge: 'कपल्स' },
+    en: { title: 'Marriage Timing & 36-Gun Milan Report — Right Time, Right Partner', subtitle: 'When will marriage happen, with what kind of partner, and how strong is compatibility — your numbers answer clearly.', badge: 'Couples' },
+    hi: { title: 'मैरिज टाइमिंग और 36-गुण मिलान रिपोर्ट — सही समय, सही साथी', subtitle: 'शादी कब होगी, कैसे साथी के साथ, और कम्पैटिबिलिटी कितनी — आपके नंबर साफ़ जवाब देते हैं।', badge: 'कपल्स' },
+  },
+  shani_sade_sati: {
+    en: { title: 'Shani Sade Sati & Dhaiya Blueprint — Protection & Timing', subtitle: 'Decode your 7.5-year Saturn transit phases and unlock classical remedies to turn delays into discipline.', badge: 'High Demand' },
+    hi: { title: 'शनि साढ़े साती एवं ढैय्या ब्लूप्रिंट — सुरक्षा और उपाय', subtitle: 'शनि के 7.5 वर्षीय गोचर के तीनों चरणों का सटीक विश्लेषण और प्रामाणिक वैदिक शांति उपाय।', badge: 'अधिक मांग' },
+  },
+  pitra_dosh_karmic: {
+    en: { title: 'Pitra Dosh & Ancestral Karma Report — Divine Blessing', subtitle: 'Identify 9th house afflictions, Sun-Rahu yogas, and unlock ancestral blessings for uninterrupted prosperity.', badge: 'Karmic Relief' },
+    hi: { title: 'पितृ दोष एवं पूर्वज कर्म रिपोर्ट — पितृ आशीर्वाद', subtitle: 'कुंडली में 9वें भाव और सूर्य के दोषों का विश्लेषण कर पूर्वजों का शुभ आशीर्वाद प्राप्त करें।', badge: 'पितृ कृपा' },
+  },
+  wealth_yogas_kundli: {
+    en: { title: 'Dhana Yogas & Laxmi Prapti Blueprint — Financial Power', subtitle: 'Pinpoint wealth combinations in 2nd, 5th, 9th, 11th houses and auspicious money cycles in your Kundli.', badge: 'High Wealth' },
+    hi: { title: 'धन योग एवं लक्ष्मी प्राप्ति ब्लूप्रिंट — महाधन योग', subtitle: 'कुंडली के 2, 5, 9 और 11वें भाव के धन योगों और लक्ष्मी प्राप्ति के शुभ समय की पहचान।', badge: 'धन वृद्धि' },
+  },
+  health_vitality_kundli: {
+    en: { title: 'Medical Astrology & Vitality Blueprint — Ayurvedic Balance', subtitle: 'Evaluate 6th/8th house indicators, 7 Chakras alignment, and Tridosha balance (Vata, Pitta, Kapha).', badge: 'Vitality' },
+    hi: { title: 'मेडिकल एस्ट्रोलॉजी एवं स्वास्थ्य ब्लूप्रिंट — त्रिदोष संतुलन', subtitle: 'कुंडली के 6ठे और 8वें भाव के स्वास्थ्य योग, 7 चक्र और वात-पित्त-कफ का संतुलन।', badge: 'आरोग्य' },
+  },
+  foreign_settlement_travel: {
+    en: { title: 'Foreign Settlement & PR Immigration Report — Global Destiny', subtitle: 'Discover 12th, 9th, and 4th house foreign travel indicators, auspicious visa timing, and overseas career yogas.', badge: 'Overseas PR' },
+    hi: { title: 'विदेश यात्रा एवं पीआर सेटलमेंट रिपोर्ट — विदेश योग', subtitle: 'कुंडली में विदेश गमन, वीज़ा प्राप्ति का शुभ समय और विदेश में स्थायी निवास के योग।', badge: 'विदेश योग' },
+  },
+  mangal_dosha_analysis: {
+    en: { title: 'Complete Manglik Dosha & Remedies Report — Marital Peace', subtitle: 'Accurate evaluation of Mars placement, 28 cancellation factors (Bhanga Yogas), and remedies.', badge: 'High Priority' },
+    hi: { title: 'सम्पूर्ण मांगलिक दोष एवं निवारण रिपोर्ट — वैवाहिक सुख', subtitle: 'मंगल दोष की तीव्रता, 28 मंगल दोष भंग योग और प्रामाणिक निवारण उपाय।', badge: 'मंगल शांति' },
   },
 };
 

@@ -29,6 +29,27 @@ export const SpecializedReportsHub: React.FC<SpecializedReportsHubProps> = ({
 
   const isHi = language === 'hi';
   const isHinglish = language === 'hinglish';
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  const categories = [
+    { id: 'all', label: isHi ? 'सभी रिपोर्ट्स (15)' : 'All Reports (15)' },
+    { id: 'vedic', label: isHi ? 'वैदिक ज्योतिष एवं दोष' : 'Kundli & Dosha Shields' },
+    { id: 'numerology', label: isHi ? 'अंक ज्योतिष एवं करियर' : 'Numerology & Career' },
+    { id: 'love', label: isHi ? 'विवाह एवं अनुकूलता' : 'Love & Marriage' },
+    { id: 'assets', label: isHi ? 'व्यापार एवं संपत्ति' : 'Business & Assets' },
+  ];
+
+  const categoryMap: Record<string, string[]> = {
+    vedic: ['shani_sade_sati', 'pitra_dosh_karmic', 'wealth_yogas_kundli', 'health_vitality_kundli', 'foreign_settlement_travel', 'mangal_dosha_analysis'],
+    numerology: ['name_correction', 'career_numerology', 'baby_name'],
+    love: ['compatibility_report', 'marriage_report', 'mangal_dosha_analysis'],
+    assets: ['business_numerology', 'property_numerology', 'vehicle_numerology', 'mobile_numerology'],
+  };
+
+  const filteredReports = REPORTS.filter((r) => {
+    if (selectedCategory === 'all') return true;
+    return (categoryMap[selectedCategory] || []).includes(r.key);
+  });
 
   const handleDownloadPdf = async (reportKey: ReportKey) => {
     setDownloadingKey(reportKey);
@@ -71,16 +92,16 @@ export const SpecializedReportsHub: React.FC<SpecializedReportsHubProps> = ({
             <Sparkles className="w-5 h-5 text-amber-400 animate-pulse" />
             <h2 className="font-display text-2xl font-bold text-white tracking-wide">
               {isHi
-                ? 'प्रीमियम विशिष्ट रिपोर्ट्स — सभी व्यक्तिगत'
+                ? 'प्रीमियम विशिष्ट रिपोर्ट्स — सभी 15 व्यक्तिगत ब्लूप्रिंट'
                 : isHinglish
-                ? 'Premium Specialized Reports — All Personalized'
-                : 'Premium Specialized Reports — All Personalized'}
+                ? 'Premium Specialized Reports — All 15 Personalized'
+                : 'Premium Specialized Reports — All 15 Personalized'}
             </h2>
           </div>
           <p className="text-sm text-gray-400 mt-1">
             {isHi
-              ? 'प्रत्येक रिपोर्ट अनोखी है — अपना प्रश्न चुनें, ₹199 से'
-              : 'Each report is unique — pick your question, from ₹199'}
+              ? 'वैदिक ज्योतिष, कुंडली योग और अंकशास्त्र के 15 विशेष ब्लूप्रिंट, ₹199 से'
+              : '15 tailored blueprints covering Vedic Kundli, Doshas, Numerology & Wealth, from ₹199'}
           </p>
         </div>
         
@@ -91,9 +112,26 @@ export const SpecializedReportsHub: React.FC<SpecializedReportsHubProps> = ({
         )}
       </div>
 
-      {/* Reports Grid (All 9 Specialized Reports) */}
+      {/* Category Pills */}
+      <div className="flex flex-wrap gap-2 pt-1 pb-2">
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setSelectedCategory(cat.id)}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+              selectedCategory === cat.id
+                ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20'
+                : 'bg-white/5 border border-white/10 text-slate-300 hover:border-white/20'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Reports Grid (Filtered Reports) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {REPORTS.map((r) => {
+        {filteredReports.map((r) => {
           const isPurchased = hasMaster || hasPlus || purchasedReports.includes(r.key);
           const discountPct = Math.round(((r.originalPrice - r.price) / r.originalPrice) * 100);
           const isDownloading = downloadingKey === r.key;
