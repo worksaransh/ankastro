@@ -1,0 +1,122 @@
+================================================================
+IMAGE GUIDE — har report ke liye images + AI prompts + sizes
+================================================================
+Folder: project/public/images/reports/<report-folder>/
+Har report folder me 7 images (exact naam, chhote akshar, .jpg):
+
+  banner.jpg     1600 x 900  px   (hero banner, 16:9)
+  preview-1.jpg  600  x 850  px   (report page mockup, portrait)
+  preview-2.jpg  600  x 850  px
+  preview-3.jpg  600  x 850  px
+  proof-1.jpg    800  x 600  px   (result/proof, landscape 4:3)
+  proof-2.jpg    800  x 600  px
+  proof-3.jpg    800  x 600  px
+
+LOGO (white-label): admin -> Settings -> Branding se UPLOAD karo
+  (ya project/public/images/brand/logo.png  -> 400x400 transparent PNG)
+
+IMAGE na ho to section apne aap hide ho jaata hai — page tab bhi chalega.
+Images banane ke liye neeche AI prompts copy karke kisi image-generator
+(ChatGPT/DALL-E, Midjourney, Leonardo, Ideogram) me daalo.
+
+THEME (sab images me consistent rakho):
+  Deep violet + midnight blue background, gold accents, mystical/cosmic,
+  Indian numerology vibe, premium, clean. Text minimal (text baad me page
+  par aata hai). Style: modern, trustworthy, spiritual-but-professional.
+
+================================================================
+1) NAME CORRECTION  -> folder: name-correction
+================================================================
+banner.jpg (1600x900):
+  "Premium cosmic banner, deep violet to midnight gradient, golden
+   glowing letters and a stylized signature transforming into light,
+   subtle numerology numbers (1-9) floating, Indian spiritual luxury
+   aesthetic, no text, 16:9, high detail"
+
+preview-1/2/3.jpg (600x850 each) — report page mockups:
+  "Mockup of a premium A4 numerology report page on violet-gold theme,
+   clean layout with headings, a name-number chart and small bars,
+   portrait, soft shadow, professional document, faux Hindi/English
+   labels, no real text needed"
+  (3 alag pages: cover page, name analysis page, remedies page)
+
+proof-1/2/3.jpg (800x600 each):
+  "Happy Indian person holding phone showing a report / customer
+   success vibe, warm lighting, authentic, 4:3" (alag-alag log)
+
+================================================================
+2) MOBILE NUMEROLOGY -> folder: mobile-numerology
+================================================================
+banner.jpg (1600x900):
+  "Cosmic banner, smartphone glowing with golden numerology digits
+   floating out of screen, violet-midnight gradient, lucky number vibe,
+   premium Indian spiritual tech aesthetic, no text, 16:9"
+
+preview-1/2/3.jpg (600x850): mobile number analysis report pages
+  (vibration chart, lucky/unlucky digits page, suggestion page)
+
+proof-1/2/3.jpg (800x600): person happily checking phone, success vibe
+
+================================================================
+3) VEHICLE NUMEROLOGY -> folder: vehicle-numerology
+================================================================
+banner.jpg (1600x900):
+  "Cosmic banner, car/bike number plate glowing with golden lucky
+   numbers, violet-midnight gradient, safe-journey protective aura,
+   premium, no text, 16:9"
+
+preview-1/2/3.jpg (600x850): vehicle number score report pages
+
+proof-1/2/3.jpg (800x600): happy person with new car/bike, keys, success
+
+================================================================
+4) CAREER NUMEROLOGY -> folder: career-numerology
+================================================================
+banner.jpg (1600x900):
+  "Cosmic banner, golden career path / ladder of success with
+   numerology numbers as steps, violet-midnight gradient, ambition +
+   destiny vibe, premium, no text, 16:9"
+
+preview-1/2/3.jpg (600x850): career report pages (best-fit careers,
+   job vs business, timing chart)
+
+proof-1/2/3.jpg (800x600): professional Indian person confident at work
+
+================================================================
+5) BABY NAME -> folder: baby-name
+================================================================
+banner.jpg (1600x900):
+  "Soft cosmic banner, cute baby cradle with golden stars and gentle
+   numerology numbers, warm violet-gold pastel, blessing vibe,
+   premium, no text, 16:9"
+
+preview-1/2/3.jpg (600x850): baby name report pages (name list with
+   scores, meaning page, naamkaran date page)
+
+proof-1/2/3.jpg (800x600): happy Indian parents with baby, warm
+
+================================================================
+6) COMPATIBILITY -> folder: compatibility
+================================================================
+banner.jpg (1600x900):
+  "Romantic cosmic banner, two golden numerology numbers merging into
+   a heart, violet-midnight gradient with rose accents, love + destiny
+   vibe, premium, no text, 16:9"
+
+preview-1/2/3.jpg (600x850): compatibility report pages (match %
+   page, strength/risk page, remedies page)
+
+proof-1/2/3.jpg (800x600): happy Indian couple, warm, authentic
+
+================================================================
+QUICK STEPS:
+================================================================
+  1. Upar diye prompts se images banao (sizes follow karo)
+  2. Resize/crop exact size me (Canva / Photopea free)
+  3. Sahi folder me sahi naam se daalo (banner.jpg etc.)
+  4. project/public/ ka pura images folder Hostinger public_html me upload
+  5. npm run build pehle ho chuka — images public se direct serve hongi
+  6. Logo: admin -> Settings -> Branding -> upload -> Save
+
+TIP: Pehle sirf banner.jpg + 1 preview daal ke test karo ek report par,
+     phir baaki bana lena. Jo na ho wo auto-hide rehta hai.

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ankjyotish-seo-mcp": {
+      "command": "node",
+      "args": [
+        "d:/AI/AnkJyotish_FINAL/project/scripts/mcp-server/server.js"
+      ],
+      "env": {
+        "SUPABASE_URL": "https://kassdsugfktqptsxzqhr.supabase.co",
+        "SUPABASE_SERVICE_ROLE_KEY": "sb_publishable_dpDzS-Z0l99-saXLIxjBBQ_MELe4bBn"
+      }
+    }
+  }
+}

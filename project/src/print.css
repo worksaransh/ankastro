@@ -1,0 +1,127 @@
+/* Print Stylesheet for AnkJyotish AI Reports */
+@media print {
+  /* Set A4 page details and default margins */
+  @page {
+    size: A4;
+    margin: 20mm 15mm 20mm 15mm;
+  }
+
+  /* Reset body styles for standard printing */
+  html, body {
+    background: #ffffff !important;
+    color: #1a1625 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide interactive, non-printable components */
+  header,
+  footer,
+  button,
+  .no-print,
+  [role="tablist"],
+  .fixed,
+  .sticky,
+  input,
+  select,
+  .language-toggle,
+  .back-button,
+  .toast,
+  iframe {
+    display: none !important;
+  }
+
+  /* Structure report cards and layouts */
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure card backgrounds and borders print correctly */
+  .glass-card-mystical,
+  .card,
+  .focus-card,
+  .bg-muted\/30 {
+    background: #fbfbfe !important;
+    border: 1px solid #e2dff0 !important;
+    box-shadow: none !important;
+    color: #1a1625 !important;
+    page-break-inside: avoid;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Format headings and details for high readability */
+  h1, h2, h3, h4, h5, h6 {
+    color: #2e1d6b !important;
+    page-break-after: avoid;
+  }
+
+  h1 {
+    font-size: 24pt !important;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 18pt !important;
+    border-bottom: 2px solid #ecdca0 !important;
+    padding-bottom: 0.3rem;
+    margin-top: 2rem;
+  }
+
+  h3 {
+    font-size: 14pt !important;
+    color: #d4af37 !important;
+  }
+
+  /* Setup clean page breaks for multi-page reports */
+  .report-section, 
+  section,
+  article,
+  .page-break {
+    page-break-before: always !important;
+    clear: both;
+  }
+
+  /* Grid layouts inside reports */
+  .grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+  }
+
+  .grid-cols-2 > * {
+    width: calc(50% - 8px) !important;
+  }
+
+  .grid-cols-3 > * {
+    width: calc(33.3% - 10px) !important;
+  }
+
+  .grid-cols-4 > * {
+    width: calc(25% - 12px) !important;
+  }
+
+  /* Force links to output their URLs next to text */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* Preserve standard text formatting */
+  span, p, li {
+    color: #1a1625 !important;
+  }
+
+  /* Ensure charts and visualizations display neatly on printed page */
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+}

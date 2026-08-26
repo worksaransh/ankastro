@@ -1,0 +1,230 @@
+import { supabase } from '@/integrations/supabase/client';
+
+export interface RecommendationItem {
+  id: string;
+  category: 'gemstone' | 'rudraksha' | 'yantra' | 'other';
+  name: string;
+  slug: string;
+  short_description: string;
+  long_description?: string;
+  associated_numbers: number[];
+  image_url: string;
+  buy_link: string;
+  price_display?: string;
+  is_active: boolean;
+  sort_order: number;
+}
+
+// Fallback seed recommendations if DB is empty / offline
+export const FALLBACK_RECOMMENDATIONS: RecommendationItem[] = [
+  {
+    id: 'rec-ruby',
+    category: 'gemstone',
+    name: 'Natural Ruby (Manik)',
+    slug: 'natural-ruby-manik',
+    short_description: 'Energized gemstone for Sun (Surya). Enhances leadership, vitality, and career success for Birth Number 1.',
+    associated_numbers: [1],
+    image_url: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=natural+ruby+manik+gemstone+certified',
+    is_active: true,
+    sort_order: 1,
+  },
+  {
+    id: 'rec-pearl',
+    category: 'gemstone',
+    name: 'Natural South Sea Pearl (Moti)',
+    slug: 'south-sea-pearl-moti',
+    short_description: 'Calming gemstone for Moon (Chandra). Calms emotions, boosts intuition, and improves relationships for Birth Number 2.',
+    associated_numbers: [2],
+    image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=natural+south+sea+pearl+moti+certified',
+    is_active: true,
+    sort_order: 2,
+  },
+  {
+    id: 'rec-yellow-sapphire',
+    category: 'gemstone',
+    name: 'Ceylon Yellow Sapphire (Pukhraj)',
+    slug: 'ceylon-yellow-sapphire-pukhraj',
+    short_description: 'Powerful gemstone for Jupiter (Guru). Attracts wisdom, business expansion, and prosperity for Birth Number 3.',
+    associated_numbers: [3],
+    image_url: 'https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=ceylon+yellow+sapphire+pukhraj+certified',
+    is_active: true,
+    sort_order: 3,
+  },
+  {
+    id: 'rec-hessonite',
+    category: 'gemstone',
+    name: 'Ceylon Hessonite Garnet (Gomed)',
+    slug: 'hessonite-gomed',
+    short_description: 'Protection gemstone for Rahu. Clears obstacles, confusion, and sudden career blocks for Birth Number 4.',
+    associated_numbers: [4],
+    image_url: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=hessonite+gomed+gemstone+certified',
+    is_active: true,
+    sort_order: 4,
+  },
+  {
+    id: 'rec-emerald',
+    category: 'gemstone',
+    name: 'Zambian Emerald (Panna)',
+    slug: 'zambian-emerald-panna',
+    short_description: 'High-vibration gemstone for Mercury (Budh). Enhances intelligence, communication, and trading luck for Birth Number 5.',
+    associated_numbers: [5],
+    image_url: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=zambian+emerald+panna+gemstone+certified',
+    is_active: true,
+    sort_order: 5,
+  },
+  {
+    id: 'rec-opal',
+    category: 'gemstone',
+    name: 'Australian Fire Opal (Diamond Alternative)',
+    slug: 'australian-fire-opal',
+    short_description: 'Luxury gemstone for Venus (Shukra). Attracts glamour, romantic harmony, and artistic wealth for Birth Number 6.',
+    associated_numbers: [6],
+    image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=australian+fire+opal+gemstone+certified',
+    is_active: true,
+    sort_order: 6,
+  },
+  {
+    id: 'rec-cats-eye',
+    category: 'gemstone',
+    name: 'Chrysoberyl Cat\'s Eye (Lehsuniya)',
+    slug: 'cats-eye-lehsuniya',
+    short_description: 'Spiritual gemstone for Ketu. Heightens intuition, guards against hidden enemies, and aids research for Birth Number 7.',
+    associated_numbers: [7],
+    image_url: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=cats+eye+lehsuniya+gemstone+certified',
+    is_active: true,
+    sort_order: 7,
+  },
+  {
+    id: 'rec-blue-sapphire',
+    category: 'gemstone',
+    name: 'Blue Sapphire (Neelam)',
+    slug: 'blue-sapphire-neelam',
+    short_description: 'Karma gemstone for Saturn (Shani). Brings rapid discipline, structural wealth, and authority for Birth Number 8.',
+    associated_numbers: [8],
+    image_url: 'https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=blue+sapphire+neelam+gemstone+certified',
+    is_active: true,
+    sort_order: 8,
+  },
+  {
+    id: 'rec-red-coral',
+    category: 'gemstone',
+    name: 'Italian Red Coral (Moonga)',
+    slug: 'italian-red-coral-moonga',
+    short_description: 'Energy gemstone for Mars (Mangal). Boosts courage, determination, and physical vitality for Birth Number 9.',
+    associated_numbers: [9],
+    image_url: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=red+coral+moonga+gemstone+certified',
+    is_active: true,
+    sort_order: 9,
+  },
+  {
+    id: 'rec-shree-yantra',
+    category: 'yantra',
+    name: 'Pure Brass 3D Meru Shree Yantra',
+    slug: 'shree-yantra-3d-meru',
+    short_description: 'Sacred Vastu geometry for attracting financial abundance, clearing negative household aura, and wealth flow.',
+    associated_numbers: [1, 3, 5, 6, 8],
+    image_url: 'https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=pure+brass+3d+meru+shree+yantra',
+    is_active: true,
+    sort_order: 10,
+  },
+  {
+    id: 'rec-kuber-yantra',
+    category: 'yantra',
+    name: 'Golden Kuber Yantra Plate (24k Gold Plated)',
+    slug: 'kuber-yantra-gold-plated',
+    short_description: 'Treasury magnet Yantra for cash flow, business safes, and debt clearance. Ideal for entrepreneurs and investors.',
+    associated_numbers: [3, 5, 8],
+    image_url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=kuber+yantra+gold+plated',
+    is_active: true,
+    sort_order: 11,
+  },
+  {
+    id: 'rec-5-mukhi-rudraksha',
+    category: 'rudraksha',
+    name: 'Certified 5 Mukhi Nepali Rudraksha Mala (108 Beads)',
+    slug: '5-mukhi-nepali-rudraksha-mala',
+    short_description: 'Authentic 5 Mukhi Rudraksha Mala for peace of mind, blood pressure balance, and spiritual protection.',
+    associated_numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    image_url: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=5+mukhi+nepali+rudraksha+mala+108+beads',
+    is_active: true,
+    sort_order: 12,
+  },
+  {
+    id: 'rec-gauri-shankar-rudraksha',
+    category: 'rudraksha',
+    name: 'Natural Gauri Shankar Rudraksha Bead',
+    slug: 'gauri-shankar-rudraksha-bead',
+    short_description: 'Sacred twin bead symbolizing Lord Shiva and Goddess Parvati. Ideal for marriage harmony, finding a partner, and soulmate bonding.',
+    associated_numbers: [2, 6],
+    image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=400&q=80',
+    buy_link: 'https://www.amazon.in/s?k=natural+gauri+shankar+rudraksha+bead',
+    is_active: true,
+    sort_order: 13,
+  }
+];
+
+/**
+ * Fetch recommendation items for a given number (Mulank 1-9) or category from Supabase with Fallback
+ */
+export async function getRecommendationsForNumber(
+  num: number,
+  category?: 'gemstone' | 'rudraksha' | 'yantra' | 'other'
+): Promise<RecommendationItem[]> {
+  try {
+    let query = supabase
+      .from('recommendation_items')
+      .select('*')
+      .eq('is_active', true)
+      .contains('associated_numbers', [num]);
+
+    if (category) {
+      query = query.eq('category', category);
+    }
+
+    const { data, error } = await query.order('sort_order', { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      return data as RecommendationItem[];
+    }
+  } catch {
+    /* fallback to memory dataset */
+  }
+
+  // Fallback filtering
+  return FALLBACK_RECOMMENDATIONS.filter((item) => {
+    const numMatch = item.associated_numbers.includes(num);
+    const catMatch = category ? item.category === category : true;
+    return item.is_active && numMatch && catMatch;
+  });
+}
+
+/**
+ * Fetch a single recommendation by slug
+ */
+export async function getRecommendationBySlug(slug: string): Promise<RecommendationItem | null> {
+  try {
+    const { data, error } = await supabase
+      .from('recommendation_items')
+      .select('*')
+      .eq('slug', slug)
+      .maybeSingle();
+
+    if (!error && data) return data as RecommendationItem;
+  } catch {
+    /* fallback */
+  }
+
+  return FALLBACK_RECOMMENDATIONS.find((item) => item.slug === slug) || null;
+}
