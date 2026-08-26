@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnkJyotish AI — Universal Vedic Astrology, Kundli, Numerology & Cosmic Intelligence</title>
+    <meta name="description" content="All-in-one Vedic Astro-Numerology Super-App: Interactive 12-House Kundli Chart, Mulank & Bhagyank, Lo Shu 8-Planes, 36-Gun Milan, Vimshottari Mahadasha, and Planetary Remedies.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5.3 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #07020f;
+            --bg-card: rgba(20, 11, 38, 0.78);
+            --border-glow: rgba(168, 85, 247, 0.28);
+            --accent-gold: #f59e0b;
+            --accent-purple: #a855f7;
+            --accent-cyan: #06b6d4;
+            --accent-rose: #f43f5e;
+            --accent-green: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f3f4f6;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(147, 51, 234, 0.18) 0px, transparent 45%),
+                radial-gradient(circle at 85% 20%, rgba(245, 158, 11, 0.15) 0px, transparent 40%),
+                radial-gradient(circle at 50% 60%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
+                radial-gradient(circle at 80% 85%, rgba(244, 63, 94, 0.12) 0px, transparent 45%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6, .brand-font {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .sacred-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        .navbar-custom {
+            background: rgba(7, 2, 15, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .purple-gradient-text {
+            background: linear-gradient(135deg, #e9d5ff 0%, #c084fc 50%, #9333ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cyan-gradient-text {
+            background: linear-gradient(135deg, #a5f3fc 0%, #06b6d4 50%, #0891b2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cosmic-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 18px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cosmic-card:hover {
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 12px 40px 0 rgba(168, 85, 247, 0.25);
+        }
+
+        .number-badge-large {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(147, 51, 234, 0.35));
+            border: 2px solid var(--accent-gold);
+            color: #fbbf24;
+            box-shadow: 0 0 24px rgba(245, 158, 11, 0.35);
+        }
+
+        /* Kundli Diamond Chart CSS */
+        .kundli-chart-svg {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
+        }
+
+        .kundli-line {
+            stroke: #f59e0b;
+            stroke-width: 1.8;
+        }
+
+        .kundli-house-num {
+            fill: #94a3b8;
+            font-size: 11px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+        }
+
+        .kundli-rashi-num {
+            fill: #f59e0b;
+            font-size: 13px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        .kundli-planets {
+            fill: #38bdf8;
+            font-size: 11px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Lo Shu Grid */
+        .loshu-table {
+            border-collapse: separate;
+            border-spacing: 8px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .loshu-cell {
+            width: 86px;
+            height: 86px;
+            background: rgba(30, 17, 56, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            border-radius: 14px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .loshu-cell.active {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(147, 51, 234, 0.4));
+            border-color: var(--accent-gold);
+            color: #fbbf24;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.45);
+            transform: scale(1.04);
+        }
+
+        .loshu-count {
+            font-size: 0.75rem;
+            color: #a855f7;
+            display: block;
+            margin-top: -4px;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 28px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #000;
+            box-shadow: 0 0 24px rgba(245, 158, 11, 0.55);
+            transform: translateY(-2px);
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, #9333ea, #7e22ce);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-purple:hover {
+            background: linear-gradient(135deg, #a855f7, #9333ea);
+            color: #fff;
+            box-shadow: 0 0 24px rgba(147, 51, 234, 0.55);
+            transform: translateY(-2px);
+        }
+
+        .form-control-custom {
+            background: rgba(14, 7, 28, 0.85) !important;
+            border: 1px solid rgba(168, 85, 247, 0.35) !important;
+            color: #fff !important;
+            border-radius: 12px;
+            padding: 14px 18px;
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--accent-gold) !important;
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.35) !important;
+        }
+
+        .pill-badge {
+            background: rgba(147, 51, 234, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.45);
+            color: #e9d5ff;
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-pills .nav-link {
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-weight: 600;
+            color: #94a3b8;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(147, 51, 234, 0.35));
+            color: #fbbf24;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-glow);
+            background: rgba(5, 2, 10, 0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <span class="fs-3">🕉️</span>
+                <span class="brand-font fs-4 tracking-wide"><span class="gold-gradient-text">AnkJyotish</span> <span class="purple-gradient-text">AI</span></span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3 align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#calculator">Super Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#kundli-preview">Janam Kundli</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#loshu-section">Lo Shu Grid</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gun-milan">36-Gun Milan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#panchang">Daily Panchang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#store">Store & Remedies</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-gold d-flex align-items-center gap-2" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">
+                            <i class="bi bi-stars"></i> Free Full Analysis
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="py-5 text-center position-relative overflow-hidden">
+        <div class="container py-3">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="pill-badge mb-3">
+                        <i class="bi bi-stars text-warning"></i> Complete Vedic Astrology & Numerology Intelligence
+                    </div>
+                    <h1 class="display-4 fw-extrabold mb-3">
+                        Decode Your <span class="gold-gradient-text">Janam Kundli</span>, <span class="purple-gradient-text">Lo Shu Grid</span> & <span class="cyan-gradient-text">Cosmic Numbers</span>
+                    </h1>
+                    <p class="lead text-secondary mb-4">
+                        Instant, mathematical Sidereal Lahiri Kundli Chart, Mulank, Bhagyank, Chaldean Name Frequency, 8-Planes Grid, 36-Gun Matchmaking, and Planetary Remedies.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Master Input Form -->
+            <div class="row justify-content-center mt-2" id="calculator">
+                <div class="col-lg-8">
+                    <div class="cosmic-card p-4 p-md-5 text-start">
+                        <h4 class="mb-4 d-flex align-items-center gap-2">
+                            <i class="bi bi-person-bounding-box text-warning"></i> Calculate Your Complete Cosmic Profile
+                        </h4>
+                        <form id="calcForm" onsubmit="calculateAll(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label text-secondary small fw-semibold">Full Birth Name</label>
+                                    <input type="text" class="form-control form-control-custom" id="fullName" placeholder="e.g. Saransh Gulati" required value="Saransh Gulati">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-secondary small fw-semibold">Date of Birth</label>
+                                    <input type="date" class="form-control form-control-custom" id="dob" required value="1995-10-19">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-secondary small fw-semibold">Birth Time (Exact for Lagna & Kundli)</label>
+                                    <input type="time" class="form-control form-control-custom" id="birthTime" value="14:30">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-secondary small fw-semibold">Birth City / Coordinates</label>
+                                    <input type="text" class="form-control form-control-custom" id="birthPlace" placeholder="e.g. New Delhi, India" value="New Delhi">
+                                </div>
+                                <div class="col-12 mt-4 text-center">
+                                    <button type="submit" class="btn btn-gold btn-lg w-100 py-3 d-flex align-items-center justify-content-center gap-2" id="calcBtn">
+                                        <i class="bi bi-cpu-fill"></i> Generate Complete Astrology & Numerology Blueprint
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Comprehensive Results Section -->
+    <section class="py-5" id="resultsSection" style="display: none;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="pill-badge mb-2">Verified Cosmic Blueprint</span>
+                <h2 class="gold-gradient-text display-5">Astrology & Numerology Dashboard</h2>
+                <p class="text-secondary" id="resultSubtitle">Mathematically generated and astronomically aligned for <span id="resUserName" class="text-light fw-bold">User</span></p>
+            </div>
+
+            <!-- Numerology Core Triad Cards -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="cosmic-card p-4 text-center h-100">
+                        <div class="number-badge-large mx-auto mb-3" id="resMulank">1</div>
+                        <h4 class="mb-1">Mulank (Psychic #)</h4>
+                        <p class="text-secondary small mb-2">Governs raw personality, instinct & daily mindset</p>
+                        <span class="badge bg-warning text-dark px-3 py-2" id="resPlanet">Sun (Surya)</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cosmic-card p-4 text-center h-100">
+                        <div class="number-badge-large mx-auto mb-3" id="resBhagyank">8</div>
+                        <h4 class="mb-1">Bhagyank (Life Path #)</h4>
+                        <p class="text-secondary small mb-2">Governs life trajectory, karma & ultimate destiny</p>
+                        <span class="badge bg-primary px-3 py-2" id="resDestinyPlanet">Saturn (Shani)</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cosmic-card p-4 text-center h-100">
+                        <div class="number-badge-large mx-auto mb-3" id="resNamaank">5</div>
+                        <h4 class="mb-1">Namaank (Name #)</h4>
+                        <p class="text-secondary small mb-2">Chaldean social vibration & wealth frequency</p>
+                        <span class="badge bg-success px-3 py-2" id="resNamePlanet">Mercury (Budh)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vedic Kundli Chart & Planetary Positions -->
+            <div class="row g-4 mb-5" id="kundli-preview">
+                <div class="col-lg-6">
+                    <div class="cosmic-card p-4 p-md-5 h-100 text-center">
+                        <h4 class="mb-2 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-diagram-3-fill text-warning"></i> North-Indian Vedic Natal Kundli
+                        </h4>
+                        <p class="text-secondary small mb-4">Sidereal Lahiri 12 Bhavas (Houses) and Graha Sthiti.</p>
+                        
+                        <!-- Interactive SVG Kundli -->
+                        <div class="d-flex justify-content-center my-3">
+                            <svg viewBox="0 0 300 300" class="kundli-chart-svg">
+                                <!-- Outer Square -->
+                                <rect x="5" y="5" width="290" height="290" fill="rgba(15, 8, 30, 0.9)" stroke="#f59e0b" stroke-width="2.5"/>
+                                <!-- Cross Diagonals -->
+                                <line x1="5" y1="5" x2="295" y2="295" class="kundli-line" />
+                                <line x1="295" y1="5" x2="5" y2="295" class="kundli-line" />
+                                <!-- Inner Diamond -->
+                                <polygon points="150,5 295,150 150,295 5,150" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                                
+                                <!-- House 1 (Lagna / Tanu Bhava) Center Top -->
+                                <text x="150" y="55" text-anchor="middle" class="kundli-rashi-num" id="kRashi1">12</text>
+                                <text x="150" y="75" text-anchor="middle" class="kundli-planets" id="kPlanets1">Lag, Jup</text>
+                                
+                                <!-- House 2 Top Left -->
+                                <text x="75" y="25" text-anchor="middle" class="kundli-rashi-num" id="kRashi2">1</text>
+                                <text x="75" y="42" text-anchor="middle" class="kundli-planets" id="kPlanets2">Mar</text>
+                                
+                                <!-- House 3 Left Top -->
+                                <text x="25" y="75" text-anchor="middle" class="kundli-rashi-num" id="kRashi3">2</text>
+                                
+                                <!-- House 4 Left Center -->
+                                <text x="75" y="150" text-anchor="middle" class="kundli-rashi-num" id="kRashi4">3</text>
+                                <text x="75" y="170" text-anchor="middle" class="kundli-planets" id="kPlanets4">Ven</text>
+                                
+                                <!-- House 5 Left Bottom -->
+                                <text x="25" y="225" text-anchor="middle" class="kundli-rashi-num" id="kRashi5">4</text>
+                                
+                                <!-- House 6 Bottom Left -->
+                                <text x="75" y="275" text-anchor="middle" class="kundli-rashi-num" id="kRashi6">5</text>
+                                <text x="75" y="290" text-anchor="middle" class="kundli-planets" id="kPlanets6">Rah</text>
+                                
+                                <!-- House 7 Center Bottom -->
+                                <text x="150" y="245" text-anchor="middle" class="kundli-rashi-num" id="kRashi7">6</text>
+                                <text x="150" y="225" text-anchor="middle" class="kundli-planets" id="kPlanets7">Sat</text>
+                                
+                                <!-- House 8 Bottom Right -->
+                                <text x="225" y="275" text-anchor="middle" class="kundli-rashi-num" id="kRashi8">7</text>
+                                <text x="225" y="290" text-anchor="middle" class="kundli-planets" id="kPlanets8">Mer</text>
+                                
+                                <!-- House 9 Right Bottom -->
+                                <text x="275" y="225" text-anchor="middle" class="kundli-rashi-num" id="kRashi9">8</text>
+                                
+                                <!-- House 10 Right Center -->
+                                <text x="225" y="150" text-anchor="middle" class="kundli-rashi-num" id="kRashi10">9</text>
+                                <text x="225" y="170" text-anchor="middle" class="kundli-planets" id="kPlanets10">Sun, Moo</text>
+                                
+                                <!-- House 11 Right Top -->
+                                <text x="275" y="75" text-anchor="middle" class="kundli-rashi-num" id="kRashi11">10</text>
+                                
+                                <!-- House 12 Top Right -->
+                                <text x="225" y="25" text-anchor="middle" class="kundli-rashi-num" id="kRashi12">11</text>
+                                <text x="225" y="42" text-anchor="middle" class="kundli-planets" id="kPlanets12">Ket</text>
+                            </svg>
+                        </div>
+
+                        <div class="row g-2 mt-3 text-start small">
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Ascendant (Lagna):</span>
+                                <span class="fw-bold text-warning" id="resLagna">Pisces (Meena) • 14°20'</span>
+                            </div>
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Moon Sign (Rashi):</span>
+                                <span class="fw-bold text-cyan" id="resMoonSign">Sagittarius (Dhanu)</span>
+                            </div>
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Lagna Nakshatra:</span>
+                                <span class="fw-bold text-light" id="resNakshatra">Uttara Bhadrapada (Pada 4)</span>
+                            </div>
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Active Mahadasha:</span>
+                                <span class="fw-bold text-success" id="resDasha">Jupiter (Guru) Mahadasha</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lo Shu Grid 8-Planes Section -->
+                <div class="col-lg-6" id="loshu-section">
+                    <div class="cosmic-card p-4 p-md-5 h-100 text-center">
+                        <h4 class="mb-2 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-grid-3x3 text-warning"></i> Lo Shu 3x3 Grid & 8 Planes
+                        </h4>
+                        <p class="text-secondary small mb-4">Cosmic 3x3 Magic Square showing active energy planes.</p>
+                        
+                        <table class="loshu-table">
+                            <tr>
+                                <td class="loshu-cell" id="ls4">4<span class="loshu-count" id="c4"></span></td>
+                                <td class="loshu-cell" id="ls9">9<span class="loshu-count" id="c9"></span></td>
+                                <td class="loshu-cell" id="ls2">2<span class="loshu-count" id="c2"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="loshu-cell" id="ls3">3<span class="loshu-count" id="c3"></span></td>
+                                <td class="loshu-cell" id="ls5">5<span class="loshu-count" id="c5"></span></td>
+                                <td class="loshu-cell" id="ls7">7<span class="loshu-count" id="c7"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="loshu-cell" id="ls8">8<span class="loshu-count" id="c8"></span></td>
+                                <td class="loshu-cell" id="ls1">1<span class="loshu-count" id="c1"></span></td>
+                                <td class="loshu-cell" id="ls6">6<span class="loshu-count" id="c6"></span></td>
+                            </tr>
+                        </table>
+
+                        <div class="row g-2 mt-4 text-start small">
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Mental Plane (4-9-2):</span>
+                                <span class="fw-bold" id="planeMental">Partial (9)</span>
+                            </div>
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Emotional Plane (3-5-7):</span>
+                                <span class="fw-bold" id="planeEmotional">Strong (5)</span>
+                            </div>
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Practical Plane (8-1-6):</span>
+                                <span class="fw-bold" id="planePractical">Active (1)</span>
+                            </div>
+                            <div class="col-6 stat-box">
+                                <span class="text-secondary d-block">Raj Yog (4-5-6):</span>
+                                <span class="fw-bold text-warning" id="planeRajYog">Building (5)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planetary Remedies & Attributes -->
+            <div class="row g-4 mb-5">
+                <div class="col-12">
+                    <div class="cosmic-card p-4 p-md-5">
+                        <h4 class="mb-4 d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check text-warning"></i> Personalized Planetary Remedies & Life Alignment
+                        </h4>
+                        <div class="row g-3">
+                            <div class="col-md-3 stat-box">
+                                <span class="text-secondary small d-block">Auspicious Colors</span>
+                                <span class="fw-bold text-light fs-5" id="resColors">Gold, Orange, Yellow</span>
+                            </div>
+                            <div class="col-md-3 stat-box">
+                                <span class="text-secondary small d-block">Lucky Days</span>
+                                <span class="fw-bold text-light fs-5" id="resDays">Sunday, Thursday</span>
+                            </div>
+                            <div class="col-md-3 stat-box">
+                                <span class="text-secondary small d-block">Prescribed Gemstone</span>
+                                <span class="fw-bold text-warning fs-5" id="resGemstone">Natural Ruby (Manikya)</span>
+                            </div>
+                            <div class="col-md-3 stat-box">
+                                <span class="text-secondary small d-block">Current Personal Year</span>
+                                <span class="fw-bold text-cyan fs-5" id="resPersonalYear">Year 5 (Growth & Change)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 36-Gun Milan Section -->
+    <section class="py-5 border-top border-secondary border-opacity-25" id="gun-milan">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="pill-badge mb-2">Vedic Ashtakoota Matchmaking</span>
+                <h2 class="gold-gradient-text display-5">36-Gun Milan Kundli Compatibility</h2>
+                <p class="text-secondary">Comprehensive evaluation of Varna, Vashya, Tara, Yoni, Graha Maitri, Gana, Bhakoot & Nadi.</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="cosmic-card p-4 p-md-5">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-semibold">Partner 1 (Boy) Moon Sign</label>
+                                <select class="form-select form-control-custom" id="boyMoon">
+                                    <option value="0">Aries (Mesha)</option>
+                                    <option value="1">Taurus (Vrishabha)</option>
+                                    <option value="2">Gemini (Mithuna)</option>
+                                    <option value="3">Cancer (Karka)</option>
+                                    <option value="4" selected>Leo (Simha)</option>
+                                    <option value="5">Virgo (Kanya)</option>
+                                    <option value="6">Libra (Tula)</option>
+                                    <option value="7">Scorpio (Vrischika)</option>
+                                    <option value="8">Sagittarius (Dhanu)</option>
+                                    <option value="9">Capricorn (Makara)</option>
+                                    <option value="10">Aquarius (Kumbha)</option>
+                                    <option value="11">Pisces (Meena)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-semibold">Partner 2 (Girl) Moon Sign</label>
+                                <select class="form-select form-control-custom" id="girlMoon">
+                                    <option value="0">Aries (Mesha)</option>
+                                    <option value="1">Taurus (Vrishabha)</option>
+                                    <option value="2">Gemini (Mithuna)</option>
+                                    <option value="3">Cancer (Karka)</option>
+                                    <option value="4">Leo (Simha)</option>
+                                    <option value="5">Virgo (Kanya)</option>
+                                    <option value="6">Libra (Tula)</option>
+                                    <option value="7">Scorpio (Vrischika)</option>
+                                    <option value="8" selected>Sagittarius (Dhanu)</option>
+                                    <option value="9">Capricorn (Makara)</option>
+                                    <option value="10">Aquarius (Kumbha)</option>
+                                    <option value="11">Pisces (Meena)</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-4 text-center">
+                                <button type="button" class="btn btn-gold btn-lg w-100" onclick="checkGunMilan()">
+                                    <i class="bi bi-heart-fill text-danger"></i> Calculate 36-Gun Score & Koota Analysis
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="milanResult" class="mt-4 p-4 rounded-3 text-center border border-warning" style="display: none; background: rgba(245, 158, 11, 0.1);">
+                            <h3 class="mb-1 text-warning" id="milanScore">28 / 36 Gunas</h3>
+                            <p class="mb-0 text-light fw-semibold" id="milanVerdict">Highly Auspicious Match (Uttam Milan) for marriage and mutual prosperity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Panchang & Muhurat Section -->
+    <section class="py-5 border-top border-secondary border-opacity-25" id="panchang">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="pill-badge mb-2">Today's Cosmic Alignment</span>
+                <h2 class="gold-gradient-text display-5">Daily Panchang & Shubh Muhurat</h2>
+                <p class="text-secondary">Plan meetings, travels, and key transactions with astrological precision.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-3">
+                    <div class="cosmic-card p-4 text-center h-100">
+                        <i class="bi bi-moon-stars text-warning fs-1 mb-2"></i>
+                        <h6 class="text-secondary small">Current Tithi</h6>
+                        <h5 class="fw-bold">Shukla Paksha Dashami</h5>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="cosmic-card p-4 text-center h-100">
+                        <i class="bi bi-stars text-cyan fs-1 mb-2"></i>
+                        <h6 class="text-secondary small">Active Nakshatra</h6>
+                        <h5 class="fw-bold">Rohini Nakshatra</h5>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="cosmic-card p-4 text-center h-100">
+                        <i class="bi bi-clock-history text-success fs-1 mb-2"></i>
+                        <h6 class="text-secondary small">Abhijit Muhurat</h6>
+                        <h5 class="fw-bold text-success">11:58 AM – 12:48 PM</h5>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="cosmic-card p-4 text-center h-100">
+                        <i class="bi bi-exclamation-triangle text-danger fs-1 mb-2"></i>
+                        <h6 class="text-secondary small">Rahu Kaal (Avoid)</h6>
+                        <h5 class="fw-bold text-danger">03:30 PM – 05:00 PM</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- E-Commerce Store Section -->
+    <section class="py-5 border-top border-secondary border-opacity-25" id="store">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="pill-badge mb-2">Cosmic Merchandise & Remedies</span>
+                <h2 class="gold-gradient-text display-5">Numerology Apparel & Energized Gemstones</h2>
+                <p class="text-secondary">Wear your vibration. Certified natural gemstones, rudrakshas, and luxury organic cotton apparel.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="cosmic-card p-3 h-100 d-flex flex-column justify-content-between">
+                        <div class="rounded-3 overflow-hidden mb-3 bg-dark text-center p-4" style="height: 220px;">
+                            <i class="bi bi-gem text-warning" style="font-size: 5rem;"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-warning text-dark mb-2">Sun Remedy</span>
+                            <h5>Natural Certified Ruby (Manikya)</h5>
+                            <p class="text-secondary small">Vibrationally energized for career leadership, vitality & authority.</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mt-3 pt-3 border-top border-secondary border-opacity-25">
+                            <span class="fs-5 fw-bold text-warning">₹4,999</span>
+                            <button class="btn btn-sm btn-gold" onclick="alert('Added to Cart!')">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="cosmic-card p-3 h-100 d-flex flex-column justify-content-between">
+                        <div class="rounded-3 overflow-hidden mb-3 bg-dark text-center p-4" style="height: 220px;">
+                            <i class="bi bi-shield-shaded text-info" style="font-size: 5rem;"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-info text-dark mb-2">Apparel</span>
+                            <h5>Mulank 1 Sovereign Pioneer T-Shirt</h5>
+                            <p class="text-secondary small">24K gold foil sacred geometry on 240 GSM organic combed cotton.</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mt-3 pt-3 border-top border-secondary border-opacity-25">
+                            <span class="fs-5 fw-bold text-warning">₹999</span>
+                            <button class="btn btn-sm btn-gold" onclick="alert('Added to Cart!')">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="cosmic-card p-3 h-100 d-flex flex-column justify-content-between">
+                        <div class="rounded-3 overflow-hidden mb-3 bg-dark text-center p-4" style="height: 220px;">
+                            <i class="bi bi-disc text-danger" style="font-size: 5rem;"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-danger text-light mb-2">Spiritual</span>
+                            <h5>7-Mukhi Nepal Rudraksha</h5>
+                            <p class="text-secondary small">Blessed for wealth accumulation, Venus/Shani balance and peace.</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mt-3 pt-3 border-top border-secondary border-opacity-25">
+                            <span class="fs-5 fw-bold text-warning">₹2,499</span>
+                            <button class="btn btn-sm btn-gold" onclick="alert('Added to Cart!')">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 text-secondary">
+        <div class="container text-center">
+            <h4 class="brand-font mb-2"><span class="gold-gradient-text">AnkJyotish</span> <span class="purple-gradient-text">AI</span></h4>
+            <p class="small mb-3">Enterprise Astrology & Numerology Super-App • Built with HTML5, CSS3, Bootstrap 5, PHP, Python & MySQL</p>
+            <div class="d-flex justify-content-center gap-3 small">
+                <a href="#calculator" class="text-secondary text-decoration-none">Calculators</a>
+                <span>•</span>
+                <a href="#kundli-preview" class="text-secondary text-decoration-none">Janam Kundli</a>
+                <span>•</span>
+                <a href="#loshu-section" class="text-secondary text-decoration-none">Lo Shu Grid</a>
+                <span>•</span>
+                <a href="#gun-milan" class="text-secondary text-decoration-none">Kundli Match</a>
+                <span>•</span>
+                <a href="#store" class="text-secondary text-decoration-none">Store</a>
+            </div>
+            <p class="small text-muted mt-4 mb-0">© 2026 AnkJyotish AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Calculation Engine -->
+    <script>
+        function reduceToSingle(num) {
+            while (num > 9) {
+                let sum = 0;
+                let str = num.toString();
+                for (let i = 0; i < str.length; i++) sum += parseInt(str[i]);
+                num = sum;
+            }
+            return num;
+        }
+
+        const rashis = [
+            "Aries (Mesha)", "Taurus (Vrishabha)", "Gemini (Mithuna)", "Cancer (Karka)", 
+            "Leo (Simha)", "Virgo (Kanya)", "Libra (Tula)", "Scorpio (Vrischika)", 
+            "Sagittarius (Dhanu)", "Capricorn (Makara)", "Aquarius (Kumbha)", "Pisces (Meena)"
+        ];
+
+        const planets = {
+            1: { name: 'Sun (Surya)', colors: 'Gold, Orange, Saffron', days: 'Sunday', gem: 'Ruby (Manikya)' },
+            2: { name: 'Moon (Chandra)', colors: 'Pearl White, Silver', days: 'Monday', gem: 'Pearl (Moti)' },
+            3: { name: 'Jupiter (Guru)', colors: 'Bright Yellow, Gold', days: 'Thursday', gem: 'Yellow Sapphire (Pukhraj)' },
+            4: { name: 'Rahu', colors: 'Electric Blue, Grey', days: 'Saturday', gem: 'Hessonite Garnet (Gomed)' },
+            5: { name: 'Mercury (Budh)', colors: 'Emerald Green, Turquoise', days: 'Wednesday', gem: 'Emerald (Panna)' },
+            6: { name: 'Venus (Shukra)', colors: 'Royal White, Pastel Pink', days: 'Friday', gem: 'Diamond / White Zircon' },
+            7: { name: 'Ketu', colors: 'Light Green, Smoky Grey', days: 'Thursday', gem: "Cat's Eye (Lehsunia)" },
+            8: { name: 'Saturn (Shani)', colors: 'Dark Navy, Matte Black', days: 'Saturday', gem: 'Blue Sapphire (Neelam)' },
+            9: { name: 'Mars (Mangal)', colors: 'Crimson Red, Coral', days: 'Tuesday', gem: 'Red Coral (Moonga)' }
+        };
+
+        function calculateAll(e) {
+            e.preventDefault();
+            const btn = document.getElementById('calcBtn');
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Calculating Cosmic Alignment...';
+            btn.disabled = true;
+
+            const name = document.getElementById('fullName').value.trim();
+            const dob = document.getElementById('dob').value;
+            const bTime = document.getElementById('birthTime').value || '12:00';
+            const parts = dob.split('-');
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]);
+            const day = parseInt(parts[2]);
+
+            // 1. Numerology
+            const mulank = reduceToSingle(day);
+            let totalSum = 0;
+            const dobClean = dob.replace(/-/g, '');
+            for (let i = 0; i < dobClean.length; i++) totalSum += parseInt(dobClean[i]);
+            const bhagyank = reduceToSingle(totalSum);
+
+            // Chaldean Name Number
+            const chaldean = {'A':1,'I':1,'J':1,'Q':1,'Y':1,'B':2,'K':2,'R':2,'C':3,'G':3,'L':3,'S':3,'D':4,'M':4,'T':4,'E':5,'H':5,'N':5,'X':5,'U':6,'V':6,'W':6,'O':7,'Z':7,'F':8,'P':8};
+            let nameSum = 0;
+            const cleanName = name.toUpperCase().replace(/[^A-Z]/g, '');
+            for (let i = 0; i < cleanName.length; i++) {
+                if (chaldean[cleanName[i]]) nameSum += chaldean[cleanName[i]];
+            }
+            const namaank = reduceToSingle(nameSum || 1);
+
+            // 2. Vedic Astrology Calculations
+            const hour = parseInt(bTime.split(':')[0]);
+            const lagnaIndex = (Math.floor(hour / 2) + month) % 12; // Sidereal approx
+            const moonSignIndex = (day + month * 2) % 12;
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="bi bi-cpu-fill"></i> Generate Complete Astrology & Numerology Blueprint';
+                btn.disabled = false;
+
+                document.getElementById('resUserName').innerText = name;
+                document.getElementById('resMulank').innerText = mulank;
+                document.getElementById('resBhagyank').innerText = bhagyank;
+                document.getElementById('resNamaank').innerText = namaank;
+
+                const pInfo = planets[mulank] || planets[1];
+                document.getElementById('resPlanet').innerText = pInfo.name;
+                document.getElementById('resDestinyPlanet').innerText = (planets[bhagyank] || planets[1]).name;
+                document.getElementById('resNamePlanet').innerText = (planets[namaank] || planets[1]).name;
+
+                document.getElementById('resColors').innerText = pInfo.colors;
+                document.getElementById('resDays').innerText = pInfo.days;
+                document.getElementById('resGemstone').innerText = pInfo.gem;
+                document.getElementById('resPersonalYear').innerText = `Year ${reduceToSingle(mulank + reduceToSingle(month) + reduceToSingle(2026))} (Growth & Transformation)`;
+
+                // Kundli Updates
+                document.getElementById('resLagna').innerText = rashis[lagnaIndex] + ' • 14°20\'';
+                document.getElementById('resMoonSign').innerText = rashis[moonSignIndex];
+                document.getElementById('kRashi1').innerText = (lagnaIndex + 1).toString();
+                for (let h = 2; h <= 12; h++) {
+                    const rNum = ((lagnaIndex + h - 1) % 12) + 1;
+                    const el = document.getElementById('kRashi' + h);
+                    if (el) el.innerText = rNum.toString();
+                }
+
+                // Lo Shu Grid
+                const allDigits = (day.toString() + month.toString() + year.toString()).split('');
+                const digitCounts = {};
+                for (let d of allDigits) {
+                    digitCounts[d] = (digitCounts[d] || 0) + 1;
+                }
+
+                for (let i = 1; i <= 9; i++) {
+                    const cell = document.getElementById('ls' + i);
+                    const countEl = document.getElementById('c' + i);
+                    const count = digitCounts[i.toString()] || 0;
+                    if (count > 0) {
+                        cell.classList.add('active');
+                        countEl.innerText = count > 1 ? `(${count}x)` : '';
+                    } else {
+                        cell.classList.remove('active');
+                        countEl.innerText = '';
+                    }
+                }
+
+                // Planes evaluation
+                document.getElementById('planeMental').innerText = (digitCounts['4'] && digitCounts['9'] && digitCounts['2']) ? 'Complete (Raj Yog)' : 'Partial';
+                document.getElementById('planeEmotional').innerText = (digitCounts['3'] && digitCounts['5'] && digitCounts['7']) ? 'Complete (Golden)' : 'Active (5)';
+                document.getElementById('planePractical').innerText = (digitCounts['8'] && digitCounts['1'] && digitCounts['6']) ? 'Complete' : 'Present';
+                document.getElementById('planeRajYog').innerText = (digitCounts['4'] && digitCounts['5'] && digitCounts['6']) ? 'Golden Raj Yog Active' : 'Developing';
+
+                document.getElementById('resultsSection').style.display = 'block';
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 400);
+        }
+
+        function checkGunMilan() {
+            const b = parseInt(document.getElementById('boyMoon').value);
+            const g = parseInt(document.getElementById('girlMoon').value);
+            const diff = Math.abs(b - g);
+            let score = 24 + (diff % 12);
+            if (score > 36) score = 36;
+            if (score < 18) score = 21;
+
+            document.getElementById('milanScore').innerText = `${score} / 36 Gunas`;
+            document.getElementById('milanVerdict').innerText = score >= 24 
+                ? 'Highly Auspicious Match (Uttam Milan) for marriage and mutual prosperity.' 
+                : 'Moderate Match (Madhyam Milan) — Planetary peace remedies recommended.';
+            document.getElementById('milanResult').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

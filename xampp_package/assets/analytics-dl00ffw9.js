@@ -1,0 +1,1 @@
+import{s}from"./index-C9wUNl4S.js";const c=async(r,e={})=>{var a;try{const{data:{session:t}}=await s.auth.getSession();await s.from("analytics_events").insert({event:r,user_id:((a=t==null?void 0:t.user)==null?void 0:a.id)??null,meta:e})}catch{}};export{c as t};

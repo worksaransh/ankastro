@@ -1,0 +1,2 @@
+banner.jpg (1600x900), preview-1/2/3.jpg (600x850), proof-1/2/3.jpg (800x600)
+Image na ho to section auto-hide. Naam same rakho.

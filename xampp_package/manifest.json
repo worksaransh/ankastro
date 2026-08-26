@@ -1,0 +1,18 @@
+{
+  "short_name": "AnkJyotish",
+  "name": "AnkJyotish AI - Divine Numerology",
+  "description": "Discover your destiny through ancient Vedic numerology and modern AI guidance.",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#07020f",
+  "theme_color": "#d4af37",
+  "display": "standalone",
+  "orientation": "portrait"
+}

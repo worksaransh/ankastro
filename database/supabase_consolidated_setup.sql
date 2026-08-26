@@ -2840,3 +2840,594 @@ ON CONFLICT ON CONSTRAINT unique_upgrade_path DO UPDATE
 SET override_price = EXCLUDED.override_price, enabled = EXCLUDED.enabled;
 
 
+
+
+-- ========================================================
+-- SCHEMAS 30, 31, 32: HYPER-PERSONALIZED & ENTERPRISE SCHEMAS
+-- ========================================================
+
+-- =====================================================================
+-- 29_hyper_personalized_reports_schema.sql — Hyper-Personalized Reports Engine Schema
+-- Adds 5 new tables to support context-driven personalized content across all reports, parts, and sections.
+-- Safe to re-run (idempotent).
+-- =====================================================================
+
+-- 1. Table: report_section_templates (Configurable report structure)
+CREATE TABLE IF NOT EXISTS public.report_section_templates (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  report_key text NOT NULL,             -- e.g. 'career_wealth', 'name_correction', 'life_path'
+  part_number int NOT NULL,             -- 1, 2, 3, 4
+  part_title text NOT NULL,             -- e.g. "PART 1: Core Personality & Soul Blueprint"
+  section_key text NOT NULL,            -- e.g. 'work_style_matrix'
+  section_title text NOT NULL,          -- e.g. "Your Dynamic Work & Financial Style"
+  section_order int NOT NULL,
+  required_inputs text[] DEFAULT '{}'::text[],
+  is_premium boolean DEFAULT false,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT report_section_templates_unique_key UNIQUE(report_key, section_key)
+);
+
+CREATE INDEX IF NOT EXISTS idx_rst_report_key ON public.report_section_templates(report_key);
+
+ALTER TABLE public.report_section_templates ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "rst_select_all" ON public.report_section_templates;
+CREATE POLICY "rst_select_all" ON public.report_section_templates FOR SELECT USING (true);
+
+GRANT SELECT ON public.report_section_templates TO anon, authenticated;
+GRANT ALL ON public.report_section_templates TO authenticated;
+
+
+-- 2. Table: personalized_content_library (Contextual interpretations matrix)
+CREATE TABLE IF NOT EXISTS public.personalized_content_library (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  number_type text NOT NULL,            -- 'mulank', 'bhagyank', 'karmic_debt', 'personal_year'
+  number_val int NOT NULL,              -- 1-9, 11, 22, 13, 14, 16, 19
+  life_stage text DEFAULT 'ALL',        -- 'student', 'working', 'business', 'retired', 'ALL'
+  profession_category text DEFAULT 'ALL',-- 'tech', 'finance', 'creative', 'management', 'ALL'
+  pillar_key text NOT NULL,             -- 'career', 'love', 'money', 'health', 'remedies'
+  lang text DEFAULT 'hinglish',         -- 'en', 'hi', 'hinglish'
+  headline text NOT NULL,
+  detailed_analysis text NOT NULL,
+  opportunities text[] DEFAULT '{}'::text[],
+  warning_signals text[] DEFAULT '{}'::text[],
+  actionable_tip text,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_pcl_lookup ON public.personalized_content_library(number_type, number_val, pillar_key, lang);
+
+ALTER TABLE public.personalized_content_library ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "pcl_select_all" ON public.personalized_content_library;
+CREATE POLICY "pcl_select_all" ON public.personalized_content_library FOR SELECT USING (true);
+
+GRANT SELECT ON public.personalized_content_library TO anon, authenticated;
+GRANT ALL ON public.personalized_content_library TO authenticated;
+
+
+-- 3. Table: user_report_sections (Generated dynamic user section content)
+CREATE TABLE IF NOT EXISTS public.user_report_sections (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  report_key text NOT NULL,
+  part_number int NOT NULL,
+  section_key text NOT NULL,
+  personalized_title text NOT NULL,
+  personalized_content jsonb NOT NULL DEFAULT '{}'::jsonb,
+  vibration_score int CHECK (vibration_score BETWEEN 0 AND 100),
+  generated_at timestamptz DEFAULT now(),
+  CONSTRAINT user_report_sections_unique UNIQUE(user_id, report_key, section_key)
+);
+
+CREATE INDEX IF NOT EXISTS idx_urs_user_report ON public.user_report_sections(user_id, report_key);
+
+ALTER TABLE public.user_report_sections ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "urs_select_own" ON public.user_report_sections;
+CREATE POLICY "urs_select_own" ON public.user_report_sections
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "urs_insert_own" ON public.user_report_sections;
+CREATE POLICY "urs_insert_own" ON public.user_report_sections
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "urs_update_own" ON public.user_report_sections;
+CREATE POLICY "urs_update_own" ON public.user_report_sections
+  FOR UPDATE TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_report_sections TO authenticated;
+
+
+-- 4. Table: user_personalized_remedies (Custom user prescribed remedies)
+CREATE TABLE IF NOT EXISTS public.user_personalized_remedies (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  remedy_type text NOT NULL,            -- 'gemstone', 'mantra', 'color', 'yantra', 'charity', 'signature'
+  remedy_title text NOT NULL,
+  target_pillar text NOT NULL,          -- 'career', 'health', 'relationship', 'finance'
+  prescription_reason text NOT NULL,
+  instructions text NOT NULL,
+  priority_level text DEFAULT 'high',   -- 'critical', 'high', 'medium'
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_upr_user ON public.user_personalized_remedies(user_id);
+
+ALTER TABLE public.user_personalized_remedies ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "upr_select_own" ON public.user_personalized_remedies;
+CREATE POLICY "upr_select_own" ON public.user_personalized_remedies
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "upr_insert_own" ON public.user_personalized_remedies;
+CREATE POLICY "upr_insert_own" ON public.user_personalized_remedies
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "upr_update_own" ON public.user_personalized_remedies;
+CREATE POLICY "upr_update_own" ON public.user_personalized_remedies
+  FOR UPDATE TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_personalized_remedies TO authenticated;
+
+
+-- 5. Table: user_personalized_cycles (Personalized time matrix)
+CREATE TABLE IF NOT EXISTS public.user_personalized_cycles (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  year int NOT NULL,
+  month int,                            -- NULL for yearly summary, 1-12 for monthly
+  personal_year int NOT NULL,
+  personal_month int,
+  key_theme text NOT NULL,
+  growth_score int CHECK (growth_score BETWEEN 0 AND 100),
+  aligned_goals jsonb DEFAULT '[]'::jsonb,
+  favorable_days text[] DEFAULT '{}'::text[],
+  caution_days text[] DEFAULT '{}'::text[],
+  action_plan text NOT NULL,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT user_personalized_cycles_unique UNIQUE(user_id, year, month)
+);
+
+CREATE INDEX IF NOT EXISTS idx_upc_user ON public.user_personalized_cycles(user_id);
+
+ALTER TABLE public.user_personalized_cycles ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "upc_select_own" ON public.user_personalized_cycles;
+CREATE POLICY "upc_select_own" ON public.user_personalized_cycles
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "upc_insert_own" ON public.user_personalized_cycles;
+CREATE POLICY "upc_insert_own" ON public.user_personalized_cycles
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "upc_update_own" ON public.user_personalized_cycles;
+CREATE POLICY "upc_update_own" ON public.user_personalized_cycles
+  FOR UPDATE TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_personalized_cycles TO authenticated;
+
+
+-- =====================================================================
+-- 30_ultimate_enterprise_numerology_schema.sql — Enterprise Numerology & Personal Intelligence Architecture
+-- Adds 15 new enterprise tables across 6 functional layers:
+-- 1. Corporate & Business Numerology
+-- 2. Karmic & Soul Blueprint Systems
+-- 3. Multi-Profile Network & Relationship Tree
+-- 4. Daily Vibe & Transit Journal (Habit Engine)
+-- 5. Lifestyle, Asset Vibrations & Vitality Profile
+-- 6. Stateful AI Memory Context
+-- Safe to re-run (idempotent).
+-- =====================================================================
+
+-- LAYER 1: ADVANCED BUSINESS & CORPORATE NUMEROLOGY
+-- 1. business_entities
+CREATE TABLE IF NOT EXISTS public.business_entities (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  owner_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  company_name text NOT NULL,
+  pythagorean_sum int NOT NULL,
+  chaldean_sum int NOT NULL,
+  registration_date date,
+  industry text,
+  brand_colors text[] DEFAULT '{}'::text[],
+  bank_account_number text,
+  bank_sum_root int,
+  address_number text,
+  address_sum_root int,
+  overall_synergy_score int CHECK (overall_synergy_score BETWEEN 0 AND 100),
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_be_owner ON public.business_entities(owner_id);
+ALTER TABLE public.business_entities ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "be_select_own" ON public.business_entities;
+CREATE POLICY "be_select_own" ON public.business_entities FOR SELECT TO authenticated USING (auth.uid() = owner_id);
+
+DROP POLICY IF EXISTS "be_insert_own" ON public.business_entities;
+CREATE POLICY "be_insert_own" ON public.business_entities FOR INSERT TO authenticated WITH CHECK (auth.uid() = owner_id);
+
+DROP POLICY IF EXISTS "be_update_own" ON public.business_entities;
+CREATE POLICY "be_update_own" ON public.business_entities FOR UPDATE TO authenticated USING (auth.uid() = owner_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.business_entities TO authenticated;
+
+-- 2. business_partner_synergy
+CREATE TABLE IF NOT EXISTS public.business_partner_synergy (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  business_id uuid REFERENCES public.business_entities(id) ON DELETE CASCADE,
+  partner_name text NOT NULL,
+  partner_dob date NOT NULL,
+  partner_mulank int NOT NULL,
+  partner_bhagyank int NOT NULL,
+  equity_percentage float DEFAULT 50.0,
+  synergy_score int CHECK (synergy_score BETWEEN 0 AND 100),
+  friction_points text[] DEFAULT '{}'::text[],
+  decision_rule text,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_bps_biz ON public.business_partner_synergy(business_id);
+ALTER TABLE public.business_partner_synergy ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "bps_all_own" ON public.business_partner_synergy;
+CREATE POLICY "bps_all_own" ON public.business_partner_synergy FOR ALL TO authenticated
+  USING (EXISTS (SELECT 1 FROM public.business_entities be WHERE be.id = business_id AND be.owner_id = auth.uid()));
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.business_partner_synergy TO authenticated;
+
+-- 3. corporate_events_scheduler
+CREATE TABLE IF NOT EXISTS public.corporate_events_scheduler (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  business_id uuid REFERENCES public.business_entities(id) ON DELETE CASCADE,
+  event_type text NOT NULL, -- 'launch', 'contract_signing', 'rebranding', 'hiring', 'investment'
+  proposed_date date NOT NULL,
+  personal_year int,
+  personal_month int,
+  auspiciousness_rating text DEFAULT 'neutral', -- 'highly_auspicious', 'neutral', 'unfavorable'
+  recommendation_notes text,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_ces_biz ON public.corporate_events_scheduler(business_id);
+ALTER TABLE public.corporate_events_scheduler ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "ces_all_own" ON public.corporate_events_scheduler;
+CREATE POLICY "ces_all_own" ON public.corporate_events_scheduler FOR ALL TO authenticated
+  USING (EXISTS (SELECT 1 FROM public.business_entities be WHERE be.id = business_id AND be.owner_id = auth.uid()));
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.corporate_events_scheduler TO authenticated;
+
+
+-- LAYER 2: DEEP KARMIC & SOUL BLUEPRINT SYSTEMS
+-- 4. karmic_debt_tracker
+CREATE TABLE IF NOT EXISTS public.karmic_debt_tracker (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  karmic_number int NOT NULL, -- 13, 14, 16, 19
+  origin_source text NOT NULL,
+  life_lesson_description text NOT NULL,
+  resolution_rituals text[] DEFAULT '{}'::text[],
+  is_resolved boolean DEFAULT false,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_kdt_user ON public.karmic_debt_tracker(user_id);
+ALTER TABLE public.karmic_debt_tracker ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "kdt_select_own" ON public.karmic_debt_tracker;
+CREATE POLICY "kdt_select_own" ON public.karmic_debt_tracker FOR SELECT TO authenticated USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "kdt_write_own" ON public.karmic_debt_tracker;
+CREATE POLICY "kdt_write_own" ON public.karmic_debt_tracker FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.karmic_debt_tracker TO authenticated;
+
+-- 5. karmic_lessons_grid
+CREATE TABLE IF NOT EXISTS public.karmic_lessons_grid (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  missing_numbers int[] DEFAULT '{}'::int[],
+  element_imbalances text[] DEFAULT '{}'::text[],
+  balancing_remedies jsonb DEFAULT '{}'::jsonb,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT klg_user_unique UNIQUE(user_id)
+);
+
+ALTER TABLE public.karmic_lessons_grid ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "klg_all_own" ON public.karmic_lessons_grid;
+CREATE POLICY "klg_all_own" ON public.karmic_lessons_grid FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.karmic_lessons_grid TO authenticated;
+
+-- 6. pinnacles_and_challenges
+CREATE TABLE IF NOT EXISTS public.pinnacles_and_challenges (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  pinnacle_phase int CHECK (pinnacle_phase BETWEEN 1 AND 4),
+  start_age int NOT NULL,
+  end_age int NOT NULL,
+  pinnacle_number int NOT NULL,
+  challenge_number int NOT NULL,
+  key_theme text NOT NULL,
+  growth_objective text NOT NULL,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT pac_user_phase_unique UNIQUE(user_id, pinnacle_phase)
+);
+
+CREATE INDEX IF NOT EXISTS idx_pac_user ON public.pinnacles_and_challenges(user_id);
+ALTER TABLE public.pinnacles_and_challenges ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "pac_all_own" ON public.pinnacles_and_challenges;
+CREATE POLICY "pac_all_own" ON public.pinnacles_and_challenges FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.pinnacles_and_challenges TO authenticated;
+
+
+-- LAYER 3: MULTI-PROFILE NETWORK & RELATIONSHIP TREE
+-- 7. user_contacts_network
+CREATE TABLE IF NOT EXISTS public.user_contacts_network (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  contact_name text NOT NULL,
+  relationship_type text NOT NULL, -- 'spouse', 'partner', 'child', 'parent', 'friend', 'colleague'
+  dob date NOT NULL,
+  mulank int NOT NULL,
+  bhagyank int NOT NULL,
+  notes text,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_ucn_user ON public.user_contacts_network(user_id);
+ALTER TABLE public.user_contacts_network ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "ucn_all_own" ON public.user_contacts_network;
+CREATE POLICY "ucn_all_own" ON public.user_contacts_network FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_contacts_network TO authenticated;
+
+-- 8. compatibility_matrix_cache
+CREATE TABLE IF NOT EXISTS public.compatibility_matrix_cache (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  contact_id uuid REFERENCES public.user_contacts_network(id) ON DELETE CASCADE,
+  love_score int,
+  work_score int,
+  trust_score int,
+  communication_score int,
+  overall_score int,
+  relationship_advice text,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT cmc_user_contact_unique UNIQUE(user_id, contact_id)
+);
+
+ALTER TABLE public.compatibility_matrix_cache ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "cmc_all_own" ON public.compatibility_matrix_cache;
+CREATE POLICY "cmc_all_own" ON public.compatibility_matrix_cache FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.compatibility_matrix_cache TO authenticated;
+
+-- 9. baby_name_shortlists
+CREATE TABLE IF NOT EXISTS public.baby_name_shortlists (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  baby_name text NOT NULL,
+  gender text NOT NULL,
+  name_root int NOT NULL,
+  destiny_root int NOT NULL,
+  compatibility_score int,
+  is_favorite boolean DEFAULT false,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_bns_user ON public.baby_name_shortlists(user_id);
+ALTER TABLE public.baby_name_shortlists ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "bns_all_own" ON public.baby_name_shortlists;
+CREATE POLICY "bns_all_own" ON public.baby_name_shortlists FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.baby_name_shortlists TO authenticated;
+
+
+-- LAYER 4: HABIT-FORMING DAILY ENGAGEMENT & TRANSITS
+-- 10. daily_vibe_journal
+CREATE TABLE IF NOT EXISTS public.daily_vibe_journal (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  date date NOT NULL,
+  daily_personal_number int NOT NULL,
+  user_mood text, -- 'great', 'neutral', 'anxious', 'productive', 'low_energy'
+  energy_rating int CHECK (energy_rating BETWEEN 1 AND 5),
+  events_notes text,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT dvj_user_date_unique UNIQUE(user_id, date)
+);
+
+CREATE INDEX IF NOT EXISTS idx_dvj_user ON public.daily_vibe_journal(user_id);
+ALTER TABLE public.daily_vibe_journal ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "dvj_all_own" ON public.daily_vibe_journal;
+CREATE POLICY "dvj_all_own" ON public.daily_vibe_journal FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.daily_vibe_journal TO authenticated;
+
+-- 11. transit_notifications_queue
+CREATE TABLE IF NOT EXISTS public.transit_notifications_queue (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  notification_type text NOT NULL, -- 'daily_vibe', 'monthly_shift', 'caution_day', 'remedy_reminder'
+  scheduled_for timestamptz NOT NULL,
+  title text NOT NULL,
+  body text NOT NULL,
+  is_sent boolean DEFAULT false,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_tnq_user ON public.transit_notifications_queue(user_id, is_sent);
+ALTER TABLE public.transit_notifications_queue ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "tnq_all_own" ON public.transit_notifications_queue;
+CREATE POLICY "tnq_all_own" ON public.transit_notifications_queue FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.transit_notifications_queue TO authenticated;
+
+-- 12. remedy_habit_tracker
+CREATE TABLE IF NOT EXISTS public.remedy_habit_tracker (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  remedy_id uuid REFERENCES public.user_personalized_remedies(id) ON DELETE CASCADE,
+  log_date date NOT NULL,
+  completed boolean DEFAULT false,
+  streak_count int DEFAULT 0,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT rht_user_remedy_date UNIQUE(user_id, remedy_id, log_date)
+);
+
+CREATE INDEX IF NOT EXISTS idx_rht_user ON public.remedy_habit_tracker(user_id);
+ALTER TABLE public.remedy_habit_tracker ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "rht_all_own" ON public.remedy_habit_tracker;
+CREATE POLICY "rht_all_own" ON public.remedy_habit_tracker FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.remedy_habit_tracker TO authenticated;
+
+
+-- LAYER 5: LIFESTYLE, ASSETS & VITALITY PROFILE
+-- 13. user_assets_vibration
+CREATE TABLE IF NOT EXISTS public.user_assets_vibration (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  asset_type text NOT NULL, -- 'vehicle', 'house', 'mobile', 'bank_account', 'passport'
+  asset_identifier text NOT NULL,
+  calculated_root int NOT NULL,
+  compatibility_verdict text NOT NULL,
+  match_score int,
+  suggested_remedy text,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_uav_user ON public.user_assets_vibration(user_id);
+ALTER TABLE public.user_assets_vibration ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "uav_all_own" ON public.user_assets_vibration;
+CREATE POLICY "uav_all_own" ON public.user_assets_vibration FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_assets_vibration TO authenticated;
+
+-- 14. health_vitality_profile
+CREATE TABLE IF NOT EXISTS public.health_vitality_profile (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  vulnerable_organs text[] DEFAULT '{}'::text[],
+  element_deficiency text,
+  ayurvedic_diet_tips text[] DEFAULT '{}'::text[],
+  chakra_focus text,
+  stress_relief_routine text,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT hvp_user_unique UNIQUE(user_id)
+);
+
+ALTER TABLE public.health_vitality_profile ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "hvp_all_own" ON public.health_vitality_profile;
+CREATE POLICY "hvp_all_own" ON public.health_vitality_profile FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.health_vitality_profile TO authenticated;
+
+
+-- LAYER 6: STATEFUL AI MEMORY CONTEXT
+-- 15. ai_user_memory
+CREATE TABLE IF NOT EXISTS public.ai_user_memory (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  memory_key text NOT NULL, -- 'top_life_goal', 'relationship_struggle', 'career_ambition', 'preferred_tone'
+  memory_value text NOT NULL,
+  confidence_score float DEFAULT 1.0,
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT aum_user_key_unique UNIQUE(user_id, memory_key)
+);
+
+CREATE INDEX IF NOT EXISTS idx_aum_user ON public.ai_user_memory(user_id);
+ALTER TABLE public.ai_user_memory ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "aum_all_own" ON public.ai_user_memory;
+CREATE POLICY "aum_all_own" ON public.ai_user_memory FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.ai_user_memory TO authenticated;
+
+
+-- =====================================================================
+-- 31_deep_study_master_schema.sql — Master Deep Study Schema
+-- Adds tables for Lo Shu Grid 8-Planes & Raj Yogas, Chaldean Compound Meanings, and Gemstone/Rudraksha Prescriptions.
+-- Safe to re-run (idempotent).
+-- =====================================================================
+
+-- 1. Table: loshu_grid_planes
+CREATE TABLE IF NOT EXISTS public.loshu_grid_planes (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  has_mental_plane boolean DEFAULT false,    -- 4-9-2
+  has_emotional_plane boolean DEFAULT false, -- 3-5-7
+  has_practical_plane boolean DEFAULT false,  -- 8-1-6
+  has_thought_plane boolean DEFAULT false,   -- 4-3-8
+  has_will_plane boolean DEFAULT false,      -- 9-5-1
+  has_action_plane boolean DEFAULT false,    -- 2-7-6
+  has_golden_yog boolean DEFAULT false,      -- 4-5-6 (Raj Yog)
+  has_silver_yog boolean DEFAULT false,      -- 2-5-8 (Property Yog)
+  missing_remedies jsonb DEFAULT '{}'::jsonb,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT lgp_user_unique UNIQUE(user_id)
+);
+
+ALTER TABLE public.loshu_grid_planes ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "lgp_all_own" ON public.loshu_grid_planes;
+CREATE POLICY "lgp_all_own" ON public.loshu_grid_planes FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.loshu_grid_planes TO authenticated;
+
+
+-- 2. Table: chaldean_compound_meanings
+CREATE TABLE IF NOT EXISTS public.chaldean_compound_meanings (
+  compound_number int PRIMARY KEY,
+  symbol_name text NOT NULL,
+  occult_meaning text NOT NULL,
+  is_fortunate boolean DEFAULT true,
+  actionable_guidance text NOT NULL
+);
+
+ALTER TABLE public.chaldean_compound_meanings ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "ccm_select_all" ON public.chaldean_compound_meanings;
+CREATE POLICY "ccm_select_all" ON public.chaldean_compound_meanings FOR SELECT USING (true);
+
+GRANT SELECT ON public.chaldean_compound_meanings TO anon, authenticated;
+GRANT ALL ON public.chaldean_compound_meanings TO authenticated;
+
+
+-- 3. Table: prescribed_gemstones_rudraksha
+CREATE TABLE IF NOT EXISTS public.prescribed_gemstones_rudraksha (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE,
+  primary_gemstone text NOT NULL,
+  recommended_ratti float NOT NULL,
+  metal_type text NOT NULL,
+  wear_finger text NOT NULL,
+  wear_day_time text NOT NULL,
+  rudraksha_mukhi text NOT NULL,
+  yantra_direction text NOT NULL,
+  beej_mantra text NOT NULL,
+  created_at timestamptz DEFAULT now(),
+  CONSTRAINT pgr_user_unique UNIQUE(user_id)
+);
+
+ALTER TABLE public.prescribed_gemstones_rudraksha ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "pgr_all_own" ON public.prescribed_gemstones_rudraksha;
+CREATE POLICY "pgr_all_own" ON public.prescribed_gemstones_rudraksha FOR ALL TO authenticated USING (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.prescribed_gemstones_rudraksha TO authenticated;

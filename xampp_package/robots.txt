@@ -1,0 +1,30 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Allow: /reports
+Allow: /pricing
+Allow: /daily-forecast
+Allow: /moolank-calculator
+Allow: /naamank-calculator
+Allow: /remedies
+Allow: /baby-names
+Allow: /numerology/
+Allow: /compatibility/
+Allow: /blog
+Allow: /blog/*
+
+# Disallow Private User & Admin Paths
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /form
+Disallow: /payment
+Disallow: /order-success
+Disallow: /plus-success
+Disallow: /reset-password
+Disallow: /forgot-password
+Disallow: /verify-success
+
+# Host & Sitemap location
+Host: https://ankjyotishai.com
+Sitemap: https://ankjyotishai.com/sitemap.xml
